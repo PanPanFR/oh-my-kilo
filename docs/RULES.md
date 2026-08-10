@@ -1,6 +1,6 @@
-# Rules Reference
+# Rules
 
-Six global rules live in `rules/`. They are loaded at session start through the `instructions` key in `kilo.jsonc`, which after install points at each file:
+Six global rules, loaded at session start via the `instructions` key in `kilo.jsonc`:
 
 ```jsonc
 "instructions": [
@@ -13,46 +13,86 @@ Six global rules live in `rules/`. They are loaded at session start through the 
 ]
 ```
 
-## Rules
+---
 
-| Rule | File | `alwaysApply` | Triggers on |
-|------|------|---------------|-------------|
-| Language | `rules/language.md` | ✅ | every session |
-| Agent memory | `rules/agentmemory.md` | ✅ | every task |
-| Skill reminder | `rules/skill-reminder.md` | ✅ | every implementation task |
-| Graphify | `rules/graphify.md` | ✅ | every codebase question |
-| Delegation | `rules/delegation.md` | ✅ | any task that fits a subagent |
-| Workers | `rules/workers.md` | ❌ | `.ts`/`.js`/wrangler files only |
+## 01. Language — The Wall
 
-## language
+> *Every file in English. Every conversation in whatever you speak.*
 
-Mandates that **everything written to files is English** — plan files, docs, README, code, comments, test names, commit messages, generated markdown. Indonesian (or any other language) is chat-only, never file content. Only exception: the user explicitly asks for another language in a specific file.
+| | |
+|---|---|
+| **File** | `rules/language.md` |
+| **Always applies** | ✅ every session |
+| **Problem** | Agents generate code, docs, and commit messages in whatever language the user happens to write in. Mixed-language codebases are a maintenance nightmare. |
+| **What it changes** | All file content — plan files, docs, README, code, comments, test names, commit messages, generated markdown — is forced to English. Indonesian (or any other language) is chat-only, never file content. |
+| **Trade-off** | User must speak English in file-oriented prompts (or accept that the rule overrides their language). Only exception: explicitly asking for another language in a specific file. |
 
-## agentmemory
+---
 
-Mandates persistent cross-session context:
+## 02. Agent Memory — The Long Memory
 
-- **Step 1 of every task**: `memory_smart_search` with keywords from the user's request. If results, incorporate them; if none, proceed.
-- **Mandatory save points**: when the user asks about existing code, mentions previous work, after a non-trivial decision, when a bug/pattern is found, when an error is hit, when a task completes, and on project switch (`memory_handoff`).
-- Fallback: if the agentmemory MCP is unavailable, Kilo's built-in `kilo_memory_recall` / `kilo_memory_save` are used instead.
+> *Every task starts with a search. Every session ends with a save.*
 
-## skill-reminder
+| | |
+|---|---|
+| **File** | `rules/agentmemory.md` |
+| **Always applies** | ✅ every task |
+| **Problem** | Agents forget everything between sessions. The same bugs get re-diagnosed, the same patterns get re-discovered, the same decisions get re-debated. |
+| **What it changes** | Every task starts with `memory_smart_search` — if prior context exists, it's incorporated. Save points are mandatory: non-trivial decisions, bug patterns, error fixes, session recaps, project switches. Fallback: Kilo's built-in `kilo_memory_recall` / `kilo_memory_save` when `agentmemory` MCP is unavailable. |
+| **Trade-off** | Small overhead at task start (one search call). Saves hours over a multi-session project. |
 
-Mandates a **skill check before any implementation task**: identify the task type, match it against the skill map (docs → `documentation`, tests → `test-driven-development`, UI → `ui-design`, code review → `clean-code`, git → `git-commit`, etc.), load the matching skill, follow its instructions, then implement. Skipping the check is the failure mode this rule prevents.
+---
 
-## graphify
+## 03. Skill Reminder — The Checklist
 
-Mandates knowledge-graph-first codebase navigation:
+> *Before coding, check if a playbook already exists.*
 
-- If `graphify-out/graph.json` exists, run `graphify query` / `graphify path` / `graphify explain` before browsing source.
-- If it does not exist, initialize with `graphify update .` (AST-only, no API cost).
-- After code changes, run `graphify update .` to keep the graph fresh.
-- Dirty graph files are expected after hooks — not a reason to skip graphify.
+| | |
+|---|---|
+| **File** | `rules/skill-reminder.md` |
+| **Always applies** | ✅ every implementation task |
+| **Problem** | Agents jump straight to coding without checking if there's a better way. TDD, systematic debugging, code review — all skipped because the agent didn't know the skill existed. |
+| **What it changes** | Before any implementation task: identify task type → match against skill map → load skill → follow instructions → then implement. The skill map covers docs, tests, UI, review, git, performance, and more. |
+| **Trade-off** | A few extra tokens at the start of each task to check the skill map. Prevents skipped best practices and lower-quality output. |
 
-## delegation
+---
 
-Mandates delegating work that fits a subagent's specialization, and running independent subtasks **in parallel** in a single message. Covers when to delegate (specialized work, context isolation, research-heavy tasks) and when not to (trivial 1-2 tool-call tasks, tasks requiring current context, quick fixes with known causes).
+## 04. Graphify — The Map
 
-## workers
+> *Navigate with a graph, not with grep.*
 
-Scoped to Cloudflare Workers work (`.ts`/`.tsx`/`.js`/wrangler files). Mandates retrieving current Cloudflare documentation before Workers, KV, R2, D1, Durable Objects, Queues, Vectorize, or AI tasks — training data may be outdated. Includes doc links, `npx wrangler` commands, and limits pages.
+| | |
+|---|---|
+| **File** | `rules/graphify.md` |
+| **Always applies** | ✅ every codebase task |
+| **Problem** | Agents browse source files blindly — slow, misses cross-file relationships, and wastes context on irrelevant code. |
+| **What it changes** | Uses `graphify query`, `path`, and `explain` before manual source browsing. If no graph exists, init with `graphify update .` (AST-only, no API cost). After code changes, update the graph. If a task could benefit from graphify but the user hasn't activated it, the agent proactively tells the user about `/graphify`. |
+| **Trade-off** | Requires `graphify` installed (`npm i -g graphify`). Without it, falls back to plain search — no breakage, just slower navigation. |
+
+---
+
+## 05. Delegation — The Hierarchy
+
+> *Don't do everything yourself. Know when to hand off.*
+
+| | |
+|---|---|
+| **File** | `rules/delegation.md` |
+| **Always applies** | ✅ any task that fits a subagent |
+| **Problem** | One agent doing everything is slow, context-bloated, and bad at specialist work. Security reviews by a general-purpose agent miss OWASP patterns; test suites miss edge cases. |
+| **What it changes** | Mandates delegating to specialized subagents (`security`, `tester`, `librarian`, `documentarian`, `explore`) and running independent subtasks **in parallel** in a single message. |
+| **Trade-off** | Subagent invocation adds a few seconds of overhead per delegation. But parallel delegation is faster overall than sequential single-agent work, and specialist quality is higher. |
+
+---
+
+## 06. Workers — The Doc-First Shield
+
+> *Don't trust training data for Cloudflare. Read the docs first.*
+
+| | |
+|---|---|
+| **File** | `rules/workers.md` |
+| **Applies to** | `.ts`, `.tsx`, `.js`, wrangler files only (scoped) |
+| **Problem** | LLM training data for Cloudflare Workers, KV, R2, D1, Durable Objects, and Wrangler is outdated. Agents hallucinate old APIs, deprecated flags, and wrong config patterns. |
+| **What it changes** | Before any Cloudflare-related work, the agent retrieves current documentation. Includes specific doc links, `npx wrangler` commands, and page limits. |
+| **Trade-off** | Adds a doc fetch step when touching Cloudflare files. But prevents deploying code with deprecated or wrong API calls — which is far more expensive to fix. |
