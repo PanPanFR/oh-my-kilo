@@ -263,26 +263,31 @@ What does this pack actually *do*? Here are five real prompts — and what happe
 
 ## 🏛 Meet the Agents
 
-Twelve curated agents. **The `agents/` folder holds prompts only** — each agent is a markdown file containing its system prompt, and that's the single place to edit behavior. Model, variant, and permissions are **not** in these files; configure them per agent via Kilo Settings (which writes the `agent` block in your `kilo.jsonc`).
+Twelve curated agents. Each agent is a markdown file in `agents/` — edit the prompt by editing the file. Model, variant, and permissions are configured via Kilo Settings.
 
-**Mode legend:** `all` = usable as your main session agent (primary). `subagent` = invoked by a primary agent via the Task tool for focused work.
+> 📖 **Full agent guide with model recommendations:** [docs/AGENTS.md](docs/AGENTS.md)
 
-| Agent | Mode | Role |
-|-------|------|------|
-| [`code`](agents/code.md) | `all` 🔷 | Default agent — implementation, debugging, general development, delegates to subagents |
-| [`debug`](agents/debug.md) | `all` 🔷 | Systematic troubleshooting, root cause analysis, diagnostics |
-| [`ask`](agents/ask.md) | `all` 🔷 | Read-only Q&A — explain code, explore concepts, investigate without changing anything |
-| [`planner`](agents/planner.md) | `all` 🔷 | System design, architecture planning, implementation plans |
-| [`auditor`](agents/auditor.md) | `all` 🔷 | Repository auditor — architecture, performance, code quality; delegates in parallel |
-| [`designer`](agents/designer.md) | `all` 🔷 | UI/UX implementation — frontend, visual polish, accessibility |
-| [`general`](agents/general.md) | `subagent` 🔶 | General-purpose research and multi-step task execution |
-| [`explore`](agents/explore.md) | `subagent` 🔶 | Fast codebase exploration — scouting, pattern finding, file location |
-| [`tester`](agents/tester.md) | `subagent` 🔶 | Comprehensive test suites — unit tests, edge cases, error paths |
-| [`security`](agents/security.md) | `subagent` 🔶 | Security audits — OWASP Top 10, auth flaws, injection, secrets, dependencies |
-| [`librarian`](agents/librarian.md) | `subagent` 🔶 | External knowledge — official docs, specs, GitHub implementations |
-| [`documentarian`](agents/documentarian.md) | `subagent` 🔶 | Technical documentation — README, API docs, runbooks, setup guides |
+### Primary Agents 🔷
 
-> 📖 **Full agent guide** — when to use each agent, which model profile fits, and concrete model recommendations: [docs/AGENTS.md](docs/AGENTS.md#when-to-use-each-agent)
+| # | Agent | Role | Prompt |
+|---|-------|------|--------|
+| 01 | **`code`** — The Architect | Implementation, debugging, general dev; delegates to specialists | [`agents/code.md`](agents/code.md) |
+| 02 | **`debug`** — The Root-Cause Hunter | Reproduce → isolate → bisect; no guessing | [`agents/debug.md`](agents/debug.md) |
+| 03 | **`ask`** — The Sage | Read-only Q&A; never touches a file | [`agents/ask.md`](agents/ask.md) |
+| 04 | **`planner`** — The Oracle | Architecture decisions, trade-offs, implementation plans | [`agents/planner.md`](agents/planner.md) |
+| 05 | **`auditor`** — The Inspector | Repo audit — architecture + performance + code quality, parallel delegation | [`agents/auditor.md`](agents/auditor.md) |
+| 06 | **`designer`** — The Artisan | UI/UX implementation, frontend polish, WCAG 2.2 AA | [`agents/designer.md`](agents/designer.md) |
+
+### Subagents 🔶
+
+| # | Agent | Role | Prompt |
+|---|-------|------|--------|
+| 07 | **`general`** — The All-Rounder | Multi-step research, decomposition, per-step verification | [`agents/general.md`](agents/general.md) |
+| 08 | **`explore`** — The Pathfinder | Fast codebase scouting — broad, shallow, quick | [`agents/explore.md`](agents/explore.md) |
+| 09 | **`tester`** — The Prover | Comprehensive test suites — unit tests, edge cases, error paths | [`agents/tester.md`](agents/tester.md) |
+| 10 | **`security`** — The Guardian | OWASP Top 10, auth flaws, injection, secrets, deps | [`agents/security.md`](agents/security.md) |
+| 11 | **`librarian`** — The Archivist | Official docs, specs, reference implementations — cited | [`agents/librarian.md`](agents/librarian.md) |
+| 12 | **`documentarian`** — The Scribe | README, API docs, runbooks — verified against code | [`agents/documentarian.md`](agents/documentarian.md) |
 
 ## 🧩 Skills
 
