@@ -196,12 +196,15 @@ Full MCP reference, including optional servers and credential-bearing ones: [doc
 
 ## 🎯 Example Workflows
 
-What does this pack actually *do*? Here are five real prompts and how the pack routes them.
+What does this pack actually *do*? Here are five real prompts — and what happens **without** oh-my-kilo versus **with** it, so the difference is clear.
 
 ### 1. Repository Audit
 
 > "Audit this repository's architecture and identify the biggest problems."
 
+**Without oh-my-kilo:** One agent reads through files manually, greps around, and gives a surface-level opinion — architecture, performance, and security all mushed into one pass with no structure.
+
+**With oh-my-kilo:**
 - **Agent:** `auditor` → delegates `security`, `explore`, `librarian` in parallel
 - **Skills:** `clean-code`, `code-review`, `ponytail-audit`
 - **Rules:** graphify-first navigation, parallel delegation
@@ -211,33 +214,45 @@ What does this pack actually *do*? Here are five real prompts and how the pack r
 
 > "Find the root cause of this bug and propose a fix."
 
+**Without oh-my-kilo:** The agent guesses, tries a fix, breaks something else, tries again — no systematic approach, no memory of similar past bugs.
+
+**With oh-my-kilo:**
 - **Agent:** `debug`
 - **Skills:** `systematic-debugging`, `diagnosing-bugs`
 - **Rules:** memory check first (has this bug been seen before?), skill check
 - **Result:** root-cause analysis with evidence, not guesswork; fix only after diagnosis
 
-### 3. Documentation
+### 3. New Feature Implementation
 
-> "Analyze this project and improve its documentation."
+> "Add a new feature: [description]."
 
-- **Agent:** `documentarian`
-- **Skills:** `documentation`, `writing-skills`
-- **Rules:** English-only files
-- **Result:** README/API docs/runbooks written or refreshed, in-repo structure respected
+**Without oh-my-kilo:** The agent starts coding immediately — no plan, no tests, no review. The feature works (maybe), but the architecture drifts and nothing is verified.
+
+**With oh-my-kilo:**
+- **Agent:** `code` → spawns `planner` for the design, `tester` for tests, `security` when auth/data is involved
+- **Skills:** `writing-plans`, `test-driven-development`, `verification-before-completion`
+- **Rules:** plan-file protocol for complex tasks, TDD before implementation, verify before claiming done
+- **Result:** structured `plan/Implementation-*.md`, tests written first, evidence-backed completion
 
 ### 4. Architecture Review
 
 > "Review this application's architecture and suggest improvements."
 
+**Without oh-my-kilo:** A loose opinion piece — "maybe extract this, perhaps that service is too big" — with no verification against the actual code.
+
+**With oh-my-kilo:**
 - **Agent:** `planner` → delegates `explore`, `librarian`
 - **Skills:** `codebase-design`, `domain-modeling`, `improve-codebase-architecture`
 - **Rules:** plan-file protocol, user confirmation loop before implementation
-- **Result:** structured `plan/Implementation-*.md` with steps, quality gates, and risks
+- **Result:** structured review with evidence from the codebase, explicit trade-offs, and a plan you confirm before anything is implemented
 
 ### 5. Knowledge Graph Exploration
 
 > "Explore this codebase and map the relationships between its major components."
 
+**Without oh-my-kilo:** Manual `grep` + reading file after file — slow, and you miss the cross-file structure.
+
+**With oh-my-kilo:**
 - **Agent:** `code` (or any agent)
 - **Command:** `/graphify`
 - **Skills:** `graphify`
@@ -348,6 +363,10 @@ Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 | [docs/RULES.md](docs/RULES.md) | The 6 global rules in detail |
 | [docs/COMMANDS.md](docs/COMMANDS.md) | `/graphify` usage and examples |
 | [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | `kilo.jsonc` blocks: permissions, providers, MCPs, agents, indexing |
+
+## 🙏 Credits
+
+oh-my-kilo is **heavily inspired by [oh-my-opencode-slim](https://github.com/alvinunreal/oh-my-opencode-slim)** by [alvinunreal](https://github.com/alvinunreal) — a lean, curated multi-agent suite for OpenCode. The idea of an opinionated, ready-to-use agent configuration pack (specialized agents + delegation hierarchy + skills + rules) comes from that project; oh-my-kilo adapts the concept for Kilo Code with its own agents, skills, and workflows. Check it out if you use OpenCode too.
 
 ## 🔒 Security
 
