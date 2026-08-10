@@ -23,9 +23,9 @@ The idea is simple: **prompts in files, models in config, behavior in rules.** E
 
 ## Who is it for?
 
+- **Everyone using Kilo Code** — from your first session to daily power use. If you're new to Kilo, install oh-my-kilo and you get a curated setup ready to go; you can learn Kilo while it works for you.
 - **Kilo users who want a ready-to-use setup** — install and start, no prompt engineering required
 - **Intermediate / power users** who want a more structured workflow — clear delegation patterns, consistent session behavior, and a knowledge graph for large codebases
-- **Not** aimed at people who have never used Kilo — you should know the basics first
 
 ## What do you get?
 
