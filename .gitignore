@@ -12,3 +12,7 @@ package-lock.json
 .ideas/
 .plan/
 plan/
+# OS/editor noise
+.DS_Store
+*.swp
+*.bak

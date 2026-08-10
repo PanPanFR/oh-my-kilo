@@ -63,7 +63,8 @@ cd "$PROJECT_NAME"
 
 echo "🧹 Cleaning up Vite template..."
 $SED_INPLACE '/<link rel="icon".*vite\.svg/d' index.html
-$SED_INPLACE 's/<title>.*<\/title>/<title>'"$PROJECT_NAME"'<\/title>/' index.html
+SAFE_PROJECT_NAME=$(printf '%s' "$PROJECT_NAME" | sed 's/[&/\\]/\\&/g')
+$SED_INPLACE 's/<title>.*<\/title>/<title>'"$SAFE_PROJECT_NAME"'<\/title>/' index.html
 
 echo "📦 Installing base dependencies..."
 pnpm install

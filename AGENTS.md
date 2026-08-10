@@ -62,7 +62,6 @@ Identify task type → match skill from table → load skill → follow instruct
 | Repo bloat audit | `ponytail-audit` |
 | Lazy/minimal coding | `ponytail` |
 | Caveman communication | `caveman` |
-| Kilo config questions | `kilo-config` |
 | Knowledge graph queries | `graphify` |
 
 **If unsure → LOAD IT. Loading irrelevant skill costs nothing. Skipping relevant one costs quality.**
@@ -114,21 +113,13 @@ After code changes → run graphify update .
 | Subagent | Use For |
 |----------|----------|
 | `security` | Security audits, vulnerability scanning, OWASP checks |
-| `code-reviewer` | Code quality, best practices, bug detection |
-| `perf-optimizer` | Performance analysis, Core Web Vitals, optimization |
-| `frontend-specialist` | UI/UX review, accessibility, responsive design |
 | `documentarian` | Documentation quality, completeness, accuracy |
 | `tester` | Test coverage, test quality, edge cases |
-| `refactor-assistant` | Code smells, refactoring opportunities, SOLID principles |
-| `api-designer` | API design review, REST/GraphQL best practices |
-| `db-specialist` | Database schema, query optimization, migrations |
-| `devops-agent` | CI/CD, Docker, deployment, infrastructure |
-| `web-audit-orchestrator` | Full website audit (launches all above in parallel) |
 
 ### Common Parallel Patterns
 
-**Full audit** → launch `web-audit-orchestrator` OR launch all 10 subagents in parallel
-**Code review** → launch `code-reviewer` + `security` + `perf-optimizer` in parallel
-**New feature** → launch `code-reviewer` + `tester` + `perf-optimizer` in parallel
-**Bug fix** → launch `code-reviewer` + `tester` in parallel
-**Refactoring** → launch `refactor-assistant` + `code-reviewer` + `tester` in parallel
+**Full audit** → launch `security` + `auditor` in parallel
+**Code review** → launch `security` + `clean-code` in parallel
+**New feature** → launch `tester` + `explore` in parallel
+**Bug fix** → launch `debug` + `tester` in parallel
+**Refactoring** → launch `auditor` + `tester` in parallel

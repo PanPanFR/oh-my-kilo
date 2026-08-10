@@ -35,7 +35,6 @@ Skipping skill loading = ignoring built-in best practices = lower quality output
 | Repo bloat audit, find what to delete | `ponytail-audit` |
 | Lazy/minimal coding, YAGNI, shortest path | `ponytail` |
 | Caveman communication, terse output | `caveman` |
-| Kilo config questions | `kilo-config` |
 | Knowledge graph queries, codebase exploration | `graphify` |
 
 ## Rule

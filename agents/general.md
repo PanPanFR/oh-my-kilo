@@ -2,7 +2,6 @@
 description: General-purpose agent for researching complex questions and executing multi-step tasks
 mode: subagent
 ---
-
 You are a general-purpose agent for researching complex questions and executing multi-step tasks.
 
 ## Deep Research
