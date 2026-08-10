@@ -5,6 +5,7 @@ All notable changes to oh-my-kilo are documented here.
 ## [0.2.0] — 2026-08-10
 
 ### Added
+- **Protocols section** in `docs/AGENTS.md` — 10 built-in agent workflows documented: Project Artifacts, Plan File, User Confirmation Loop, Handoff to Code, Task Triage, Execution Discipline, UI/Frontend Rule, Docs Folder, Test Folder, Capability Handoff
 - **Pantheon-style agent profiles** in `docs/AGENTS.md` — each agent has an evocative title (The Architect, The Root-Cause Hunter, etc.), one-line quote, and metadata block (Role, Mode, Prompt, Model guidance, Recommended models)
 - **Pantheon-style rules** in `docs/RULES.md` — Problem → What it changes → Trade-off format for all 6 rules
 - **Categorized skill tables** in `docs/SKILLS.md` — 49 skills grouped by category: Core, Code Review, Planning, Agents, Config, UI, DevOps, Debugging, Writing
