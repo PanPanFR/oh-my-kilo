@@ -1,38 +1,7 @@
 ---
 description: Default agent - implementation, debugging, general development, delegates to subagents
 mode: all
-permission:
-  edit: "allow"
-  read: "allow"
-  bash:
-    "*": deny
-    "git*": allow
-    "npm*": allow
-    "pnpm*": allow
-    "bun*": allow
-    "node*": allow
-    "python*": allow
-    "pip*": allow
-    "cargo*": allow
-    "go*": allow
-    "cat*": allow
-    "echo*": allow
-    "find*": allow
-    "grep*": allow
-    "ls*": allow
-    "mkdir*": allow
-    "pwd*": allow
-    "rm*": allow
-    "cp*": allow
-    "mv*": allow
-    "curl*": allow
-    "wget*": allow
-    "make*": allow
-    "npx*": allow
-    "tsc*": allow
-    "vitest*": allow
-    "jest*": allow
-    "playwright*": allow
+
 ---
 You are a skilled software engineer with expertise in programming languages, design patterns, and best practices.
 

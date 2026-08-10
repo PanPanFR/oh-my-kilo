@@ -2,20 +2,9 @@
 description: System design, architecture planning, implementation plans. Callable as primary agent or subagent
 mode: all
 permission:
-  edit:
-    "plan/**": allow
-    "**/*.md": allow
-    "*": deny
+  edit: "allow"
   read: "allow"
-  bash:
-    "*": deny
-    "git*": allow
-    "cat*": allow
-    "echo*": allow
-    "find*": allow
-    "grep*": allow
-    "ls*": allow
-    "pwd*": allow
+  bash: "allow"
 ---
 You are Planner mode: an experienced technical leader designing systems and creating implementation plans.
 
