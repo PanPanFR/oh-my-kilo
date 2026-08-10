@@ -1,6 +1,6 @@
 # ✨ oh-my-kilo ✨
 
-*A curated Kilo Code configuration pack — twelve specialized agents, forty-nine skills, six global rules, and a knowledge-graph command, ready to install and use.*
+*A curated Kilo Code configuration with specialized agents, skills, rules, and workflows — built to make Kilo smarter and more autonomous out of the box.*
 
 **Kilo Code Agent Suite** · 12 agents · 49 skills · 6 rules · `/graphify`
 
@@ -8,90 +8,63 @@
 [![Agents](https://img.shields.io/badge/agents-12-orange)](#meet-the-agents)
 [![Skills](https://img.shields.io/badge/skills-49-green)](#skills)
 
-✦ ✦ ✦
+---
 
-## What's This
+## What is oh-my-kilo?
 
-oh-my-kilo is a **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) — plain files you copy into `~/.config/kilo`. No plugin runtime, no installer script. What you get:
+A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) — plain files you copy into `~/.config/kilo`. No plugin runtime, no build step. Instead of building your AI coding workflow from scratch, you get a curated, opinionated setup that works immediately:
 
-- **A curated set of agent prompts** — 12 markdown files in `agents/` that shape how Kilo's agents behave. Five (`code`, `debug`, `ask`, `planner`, `auditor`) run as your main session agent; the other seven are specialists you delegate to via the Task tool.
-- **49 skills** — prompt-based playbooks curated from popular community skill packs (obra/superpowers, mattpocock/skills, vercel-labs/skills, and others), organized by category so the right workflow is one skill-load away.
-- **6 global rules** — always-on guardrails that keep every session consistent: English-only files, mandatory memory search, mandatory skill check, knowledge-graph-first navigation, delegation policy, and Cloudflare Workers doc-first guidance.
-- **1 command** — `/graphify`, wired to the graphify skill for building and querying codebase knowledge graphs.
+- **12 specialized agents** — implementation, debugging, planning, auditing, UI, security, docs, and more, with a delegation hierarchy already designed
+- **49 skills** — battle-tested playbooks (TDD, systematic debugging, code review, writing-plans, web-perf) curated from popular community packs
+- **6 global rules** — always-on guardrails: English-only files, mandatory memory search, mandatory skill check, knowledge-graph-first navigation, parallel delegation, Cloudflare Workers doc-first
+- **1 command** — `/graphify` for building and querying codebase knowledge graphs
 
 The idea is simple: **prompts in files, models in config, behavior in rules.** Edit an agent prompt by editing its file; switch models via Kilo Settings; add your own agents, rules, or skills without touching anything else.
 
-### ✨ Highlights
+## Who is it for?
 
-- **12 specialized agents** — 6 primary (`code`, `debug`, `ask`, `planner`, `auditor`, `designer`) + 6 subagents (`general`, `explore`, `tester`, `security`, `librarian`, `documentarian`). Primary agents run as your main session agent and delegate; subagents are invoked by them for focused work. — [Meet the Agents](#meet-the-agents)
-- **49 bundled skills** — curated from popular community packs (obra/superpowers, mattpocock/skills, vercel-labs/skills, and others), covering writing, code review, planning, agents, config, UI, devops, debugging, and testing. Auto-loaded by the `skill-reminder` rule. — [Skills](#skills)
-- **6 global rules** — language enforcement, mandatory memory check, mandatory skill check, graphify navigation, delegation policy, Cloudflare Workers guidance. — [Rules](#rules)
-- **`/graphify` command** — build and query a knowledge graph of any codebase, wired to the `graphify` skill. — [Commands](#commands)
-- **MCP support** — required `agentmemory` server plus recommended `context7`, `chrome-devtools`, `playwright`, all registered in your `kilo.jsonc`. — [MCP Servers](#mcp-servers)
-- **Fully editable** — every agent prompt is a plain markdown file in `agents/`; customize, add, or remove freely.
+- **Kilo users who want a ready-to-use setup** — install and start, no prompt engineering required
+- **Intermediate / power users** who want a more structured workflow — clear delegation patterns, consistent session behavior, and a knowledge graph for large codebases
+- **Not** aimed at people who have never used Kilo — you should know the basics first
 
-<a id="prerequisites"></a>
-## Prerequisites
+## What do you get?
 
-Two extra tools power parts of the pack. Install them both in one go:
+| Component | Count | What it does |
+|-----------|-------|--------------|
+| Agents | 12 | 6 primary (`code`, `debug`, `ask`, `planner`, `auditor`, `designer`) + 6 subagents (`general`, `explore`, `tester`, `security`, `librarian`, `documentarian`) |
+| Skills | 49 | Curated playbooks across 9 categories: writing, code-review, planning, agents, config, UI, devops, debugging, testing |
+| Rules | 6 | Always-on session guardrails, loaded via the `instructions` config |
+| Commands | 1 | `/graphify` — build/query codebase knowledge graphs |
 
-| Tool | What it does | Install |
-|------|--------------|---------|
-| **graphify** | Builds and queries the codebase knowledge graph (`graphify-out/`) used by the `graphify` rule, the `graphify` skill, and `/graphify` | `npm i -g graphify` |
-| **agentmemory** | Persistent cross-session memory server on `localhost:3111`; powers the `agentmemory` rule and is a **required MCP server** (register it in `kilo.jsonc`, see [MCP Servers](#mcp-servers)) | `npx -y @agentmemory/mcp` with `AGENTMEMORY_URL=http://localhost:3111` |
+---
 
-If a tool is missing, the pack degrades gracefully: no graphify → plain search instead of graph queries; no agentmemory → the rules fall back to Kilo's built-in `kilo_memory_recall` / `kilo_memory_save`.
+## ⚠️ Before You Install: Backup Your Config
 
-<a id="mcp-servers"></a>
-## 🧩 MCP Servers
+oh-my-kilo copies files **into your existing Kilo config directory** (`~/.config/kilo`). If you already have agents, skills, rules, or an `AGENTS.md` there, they will be **overwritten or merged**.
 
-MCP servers extend Kilo with external tools (docs lookups, browser automation, memory). **They are configured in your `kilo.jsonc` under the `"mcp"` block** — the servers themselves run as `npx` processes on demand, so there is nothing to install beyond the `mcp` block below.
+**Always back up your current config first:**
 
-### Required
+```bash
+# Windows (PowerShell)
+Copy-Item "$env:USERPROFILE\.config\kilo" "$env:USERPROFILE\.config\kilo.backup-$(Get-Date -Format yyyyMMdd)" -Recurse
 
-| MCP | Why | Type |
-|-----|-----|------|
-| `agentmemory` | Persistent cross-session memory — required by the `agentmemory` rule. Add it after running the [Prerequisites](#prerequisites) install. | local |
-
-```jsonc
-"mcp": {
-  "agentmemory": {
-    "type": "local",
-    "command": ["npx", "-y", "@agentmemory/mcp"],
-    "environment": { "AGENTMEMORY_URL": "http://localhost:3111" }
-  }
-}
+# macOS / Linux
+cp -r ~/.config/kilo ~/.config/kilo.backup-$(date +%Y%m%d)
 ```
 
-### Highly Recommended
+**To roll back:** delete the oh-my-kilo files from `~/.config/kilo` and restore your backup:
 
-| MCP | Why | Type |
-|-----|-----|------|
-| `context7` | Up-to-date library documentation for any package — the pack's agents use it for research. Needs a free API key from [context7.com](https://context7.com) | remote |
-| `chrome-devtools` | Live browser control: page snapshots, console, network, performance traces, Lighthouse audits | local |
-| `playwright` | Browser automation for testing and web scraping (first run may need `npx playwright install chromium`) | local |
-
-```jsonc
-"mcp": {
-  "context7": {
-    "type": "remote",
-    "url": "https://mcp.context7.com/mcp",
-    "headers": { "Authorization": "{env:CTX7_API_KEY}" }
-  },
-  "chrome-devtools": {
-    "type": "local",
-    "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
-  },
-  "playwright": {
-    "type": "local",
-    "command": ["npx", "-y", "@playwright/mcp@latest"]
-  }
-}
+```bash
+# macOS / Linux
+rm -rf ~/.config/kilo/agents ~/.config/kilo/skills ~/.config/kilo/rules ~/.config/kilo/commands ~/.config/kilo/docs ~/.config/kilo/AGENTS.md
+cp -r ~/.config/kilo.backup-YYYYMMDD/* ~/.config/kilo/
 ```
 
-Set `CTX7_API_KEY` in your `.env` or shell. `{env:VAR}` placeholders resolve **only in the trusted global config** (`~/.config/kilo/`). Full MCP reference, including optional servers and credential-bearing ones: [docs/CONFIGURATION.md](docs/CONFIGURATION.md#mcp--register-servers-in-kilo-jsonc).
+Don't like it? Restore and you're exactly where you started.
 
-## Quick Start
+---
+
+## 🚀 Quick Start
 
 Copy the repo contents into your Kilo config dir. No scripts, no merge helpers — plain copy.
 
@@ -163,7 +136,116 @@ You should see all 12 agents and the 49 skills. If something is missing, check t
 
 ---
 
-<a id="meet-the-agents"></a>
+## 🎚 Setup Tiers
+
+Not everything is mandatory. Pick the tier that matches what you need:
+
+| Tier | Includes | Best for |
+|------|----------|----------|
+| **Minimal** | Agents + skills + rules + `/graphify` command | Core setup — works with zero extra tools. No graphify? Plain search. No agentmemory? Built-in `kilo_memory_recall`/`kilo_memory_save`. |
+| **Recommended** | Minimal + MCP servers (`context7`, `chrome-devtools`, `playwright`) | Most users. Up-to-date docs lookup, browser control, automation — needs a free [context7](https://context7.com) API key. |
+| **Full** | Recommended + `graphify` + `agentmemory` | Power users. Knowledge graph for large codebases + persistent cross-session memory. |
+
+### Minimal — start here
+
+Follow [Quick Start](#-quick-start). That's it. The pack degrades gracefully when optional tools are missing.
+
+### Recommended — add MCP servers
+
+Add the MCP block to your `kilo.jsonc`:
+
+```jsonc
+"mcp": {
+  "context7": {
+    "type": "remote",
+    "url": "https://mcp.context7.com/mcp",
+    "headers": { "Authorization": "{env:CTX7_API_KEY}" }
+  },
+  "chrome-devtools": {
+    "type": "local",
+    "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
+  },
+  "playwright": {
+    "type": "local",
+    "command": ["npx", "-y", "@playwright/mcp@latest"]
+  }
+}
+```
+
+Set `CTX7_API_KEY` in your `.env` or shell. `{env:VAR}` placeholders resolve **only in the trusted global config** (`~/.config/kilo/`).
+
+### Full — add knowledge graph + persistent memory
+
+```bash
+npm i -g graphify
+```
+
+```jsonc
+"mcp": {
+  "agentmemory": {
+    "type": "local",
+    "command": ["npx", "-y", "@agentmemory/mcp"],
+    "environment": { "AGENTMEMORY_URL": "http://localhost:3111" }
+  }
+}
+```
+
+Full MCP reference, including optional servers and credential-bearing ones: [docs/CONFIGURATION.md](docs/CONFIGURATION.md#mcp--register-servers-in-kilo-jsonc).
+
+---
+
+## 🎯 Example Workflows
+
+What does this pack actually *do*? Here are five real prompts and how the pack routes them.
+
+### 1. Repository Audit
+
+> "Audit this repository's architecture and identify the biggest problems."
+
+- **Agent:** `auditor` → delegates `security`, `explore`, `librarian` in parallel
+- **Skills:** `clean-code`, `code-review`, `ponytail-audit`
+- **Rules:** graphify-first navigation, parallel delegation
+- **Result:** architecture + performance + code-quality report, backed by subagent findings
+
+### 2. Debugging
+
+> "Find the root cause of this bug and propose a fix."
+
+- **Agent:** `debug`
+- **Skills:** `systematic-debugging`, `diagnosing-bugs`
+- **Rules:** memory check first (has this bug been seen before?), skill check
+- **Result:** root-cause analysis with evidence, not guesswork; fix only after diagnosis
+
+### 3. Documentation
+
+> "Analyze this project and improve its documentation."
+
+- **Agent:** `documentarian`
+- **Skills:** `documentation`, `writing-skills`
+- **Rules:** English-only files
+- **Result:** README/API docs/runbooks written or refreshed, in-repo structure respected
+
+### 4. Architecture Review
+
+> "Review this application's architecture and suggest improvements."
+
+- **Agent:** `planner` → delegates `explore`, `librarian`
+- **Skills:** `codebase-design`, `domain-modeling`, `improve-codebase-architecture`
+- **Rules:** plan-file protocol, user confirmation loop before implementation
+- **Result:** structured `plan/Implementation-*.md` with steps, quality gates, and risks
+
+### 5. Knowledge Graph Exploration
+
+> "Explore this codebase and map the relationships between its major components."
+
+- **Agent:** `code` (or any agent)
+- **Command:** `/graphify`
+- **Skills:** `graphify`
+- **Rules:** graphify-first navigation (init graph if missing)
+- **Result:** structural map of the codebase — queries, paths, explanations — before touching code
+
+---
+
 ## 🏛 Meet the Agents
 
 Twelve curated agents. **The `agents/` folder holds prompts only** — each agent is a markdown file containing its system prompt, and that's the single place to edit behavior. Model, variant, and permissions are **not** in these files; configure them per agent via Kilo Settings (which writes the `agent` block in your `kilo.jsonc`).
@@ -187,7 +269,6 @@ Twelve curated agents. **The `agents/` folder holds prompts only** — each agen
 
 > 📖 **Full agent guide** — when to use each agent, which model profile fits, and concrete model recommendations: [docs/AGENTS.md](docs/AGENTS.md#when-to-use-each-agent)
 
-<a id="skills"></a>
 ## 🧩 Skills
 
 Skills are prompt-based playbooks injected into an agent's context when a task matches. They run no process — just focused instructions. The 49 skills are **curated from popular community skill packs** (obra/superpowers, mattpocock/skills, vercel-labs/skills, and others), selected and grouped by category — you get the best-known workflows (TDD, systematic debugging, code review, writing-plans, UI design, web-perf) without installing each pack yourself. Loaded automatically at session start via the `skills.paths` config, and the `skill-reminder` rule makes every task check for a matching skill before starting.
@@ -208,7 +289,6 @@ Full 49-skill table with descriptions: [docs/SKILLS.md](docs/SKILLS.md)
 
 > 💡 **Frontend tip:** For UI/frontend work, prefer starting from an existing template or component library (Tailwind UI, shadcn/ui, your project's boilerplate) and adapting it to your taste — rather than building from scratch. Templates ship with consistent design tokens, responsive behavior, and accessibility defaults already handled; build-from-scratch only when no template fits.
 
-<a id="rules"></a>
 ## ⚙️ Rules
 
 Six global rules, loaded at session start via the `instructions` config. Each mandates a behavior for every session.
@@ -224,7 +304,6 @@ Six global rules, loaded at session start via the `instructions` config. Each ma
 
 Reference: [docs/RULES.md](docs/RULES.md)
 
-<a id="commands"></a>
 ## ⌨️ Commands
 
 | Command | Description |
@@ -232,6 +311,29 @@ Reference: [docs/RULES.md](docs/RULES.md)
 | `/graphify [args]` | Build or query a graphify knowledge graph — `query`, `path`, `explain`, `update` |
 
 Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
+
+---
+
+## 🖥 Compatibility
+
+| Platform / Tool | Status |
+|-----------------|--------|
+| Kilo Code (CLI) | ✅ Tested |
+| Kilo Code (VS Code extension) | ✅ Tested |
+| Windows | ✅ Tested |
+| Linux | ✅ Tested |
+| macOS | ⚠️ Untested (should work — same paths as Linux; report issues) |
+| `graphify` | Optional — degrades to plain search if missing |
+| `agentmemory` | Optional — falls back to built-in Kilo memory if missing |
+| MCP servers | Optional — see [Setup Tiers](#-setup-tiers) |
+
+## ⚠️ Known Limitations
+
+- Some skills require `skills.paths` configuration — without it, Kilo looks in the default `%USERPROFILE%\.kilo\skills\` directory
+- Graph workflows (`/graphify`, `graphify` rule) require `graphify` installed (`npm i -g graphify`)
+- Persistent cross-session memory requires the `agentmemory` MCP server running on `localhost:3111`
+- Some MCPs require authentication (e.g. `context7` needs a free API key)
+- Some MCPs may require first-run setup (e.g. `npx playwright install chromium`)
 
 ---
 
@@ -250,6 +352,10 @@ Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 ## 🔒 Security
 
 The pack ships zero credentials — only credential-free MCPs, `{env:VAR}` placeholders, and an opinionated permission default that you should review. See [SECURITY.md](SECURITY.md).
+
+## Contributing
+
+Found a bug, an install issue, or have an agent/skill suggestion? Open an issue or PR — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
