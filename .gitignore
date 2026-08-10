@@ -1,0 +1,14 @@
+# never commit the user's real config
+kilo.jsonc
+.env
+.env.*
+!.env.example
+# machine state
+data/
+.kilo/
+node_modules/
+package-lock.json
+*.log
+.ideas/
+.plan/
+plan/
