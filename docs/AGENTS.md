@@ -202,6 +202,103 @@ Technical documentation — READMEs, API docs, architecture docs, runbooks. Ever
 
 ---
 
+## Protocols
+
+Built-in systems that agents follow to keep work structured, traceable, and high-quality. These are not just guidelines — they are enforced workflows embedded in the agent prompts.
+
+### Project Artifacts Protocol — `planner`
+
+Before planning any task, `planner` checks what project documentation already exists:
+
+1. **Scan** `docs/` and repo root for: PRD, TDD (Technical Design Document), API Spec, UI/UX Specs, ADR (Architecture Decision Record — numbered: `ADR-001-<name>.md`, `ADR-002-<name>.md`, ...)
+2. **If missing** — asks the user first, then auto-generates them under `docs/` (using the `documentarian` subagent). ADR format: Context → Decision → Consequences.
+3. **If exists** — reads them first and bases the plan on them.
+4. **After any change** — updates the relevant artifacts so they stay in sync. Never lets docs drift.
+
+### Plan File Protocol — `planner`
+
+Every complex task produces a structured plan file in `plan/Implementation-<name>.md`:
+
+- **Goal & Scope** — problem being solved, target end state, in/out of scope
+- **Steps** — ordered by dependency; each states what to do, files to touch, and measurable acceptance criteria (Given/When/Then preferred)
+- **Quality gates** — every step's done criteria is verifiable: code compiles, tests pass, lint/types clean. No "looks done."
+- **Final verification** — a closing step that checks the work against the plan/spec and confirms every step's done criteria are met.
+- **Risks** (only if real) — what could block the plan and mitigation
+
+Plans are living documents — updated when requirements change. Deleted once fully implemented (plans are temporary working documents).
+
+### User Confirmation Loop — `planner`
+
+A plan is not final until the user confirms it. After writing the plan file, `planner` presents a concise summary and asks for confirmation. If the user flags anything wrong, the plan is revised and confirmed again. Never starts implementing while the plan is still unconfirmed.
+
+### Handoff to Code Mode — `planner`
+
+`planner` designs and plans only — it does not implement. Once the user confirms the plan, it instructs them to switch to `code` mode. The `code` agent then implements step-by-step, mirroring plan steps into the Kilo todo list (`todowrite`/`todoread`).
+
+### Task Triage — `code`
+
+Before implementing, `code` classifies the task:
+
+| Complexity | Action |
+|-----------|--------|
+| **Simple/trivial** (1-2 edits, known fix) | Do it directly. No delegation. |
+| **Complex/multi-step** (new feature, refactor, unclear design) | Spawn `planner` first → get plan → implement following plan |
+| **Tests** | Spawn `tester` |
+| **Security review** | Spawn `security` |
+| **UI/frontend** | Spawn `designer` (except trivial one-off tweaks) |
+| **Research** | Spawn `librarian` |
+| **Codebase recon** | Spawn `explore` |
+
+### Execution Discipline — `code`
+
+When implementing, `code` follows these rules:
+
+- **Plan adherence** — follow `plan/Implementation-*.md` step-by-step; mirror steps into Kilo todo list
+- **TDD** — write tests first, confirm they fail, then implement
+- **Verification before completion** — never claim done without evidence (run tests/build/lint and report output)
+- **Checkpoint defensively** — commit before multi-file refactors so you can roll back
+- **Context management** — after 2+ failed corrections, start fresh instead of accumulating degraded context
+- **Self-review** — review your own diff before finishing; treat agent output as untrusted
+
+### UI/Frontend Rule — `code`
+
+- Design assets live in a dedicated `design/` folder at the project root
+- Before any UI work: check `design/` first; if it exists, read `design/design.md` and follow it
+- If `design/` doesn't exist: create it when starting UI work
+- If `design/design.md` is missing: ask the user to create one, or generate from project conventions
+- Delegation threshold: moderate+ complexity → delegate to `designer`; trivial → do directly
+
+### Docs Folder Protocol — `documentarian`
+
+- All documentation lives in `docs/` at the repo root (create if missing)
+- Nested folders for structure: `docs/api/`, `docs/guides/`, `docs/architecture/`
+- One file per topic, descriptive names: `docs/api/authentication.md`
+- Root-level files like README stay where they are
+
+### Test Folder Protocol — `tester`
+
+- All test files live in `test/` at the repo root (create if missing)
+- Nested folders to mirror source: `test/unit/`, `test/integration/`, `test/api/`
+- One test file per module/feature, named after what it tests: `test/auth.test.ts`
+- Before writing: identify the test framework used and check existing test files for patterns
+
+### Capability Handoff — `code`, `debug`, `ask`, `auditor`
+
+When a task exceeds an agent's capability or another agent is more reliable, the agent says so explicitly and recommends the better agent. Escalates early and concretely — names the agent, says why it fits, and what to ask it.
+
+| Stuck on | Escalate to |
+|----------|-------------|
+| Bug after 2-3 fix attempts | `debug` |
+| UI/visual work | `designer` |
+| Security review needed | `security` |
+| Test suite needed | `tester` |
+| External research needed | `librarian` |
+| Architecture/design decision | `planner` |
+| Full repo audit | `auditor` |
+| Read-only Q&A | `ask` |
+
+---
+
 ## When to Use Each Agent
 
 | Task | Agent | Why |
