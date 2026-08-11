@@ -26,8 +26,7 @@ oh-my-kilo/
 │
 ├── command/           # Slash commands
 │   ├── graphify.md    #   /graphify — build/query knowledge graphs
-│   ├── update-pack.md #   /update-pack — update pack in config + register rules
-│   └── install-pack.md #  /install-pack — AI-assisted install (clone, backup, copy, register)
+│   └── update-pack.md #   /update-pack — pull + sync pack into config + register rules
 │
 ├── rules/             # Global rules loaded at session start
 │   ├── language.md            # English-only file content

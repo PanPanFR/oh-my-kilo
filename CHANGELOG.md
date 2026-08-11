@@ -2,6 +2,12 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.2.8] — 2026-08-11
+
+### Changed
+- **`/update-pack` now pulls from GitHub** — user just types `/update-pack`, the agent pulls latest changes, syncs folders, registers new rules, and reports what changed (or "already up-to-date"). No manual `git pull` needed.
+- **`/install-pack` removed** — first-time install is manual CLI (deterministic, no AI dependency). Commands: clone + copy `command/` + run `/install-pack` → handled by agent. Removed to simplify the command set to a single `/update-pack`.
+
 ## [0.2.7] — 2026-08-11
 
 ### Changed

@@ -17,7 +17,7 @@ A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) �
 - **12 specialized agents** — implementation, debugging, planning, auditing, UI, security, docs, and more, with a delegation hierarchy already designed
 - **49 skills** — battle-tested playbooks (TDD, systematic debugging, code review, writing-plans, web-perf) curated from popular community packs
 - **7 global rules** — always-on guardrails: English-only files, mandatory memory search, mandatory skill check, knowledge-graph-first navigation, parallel delegation, Cloudflare Workers doc-first, caveman/ponytail style
-- **2 commands** — `/update-pack` and `/install-pack` for syncing and installing the pack
+- **1 command** — `/update-pack` to pull latest changes and sync the pack into your config
 
 The idea is simple: **prompts in files, models in config, behavior in rules.** Edit an agent prompt by editing its file; switch models via Kilo Settings; add your own agents, rules, or skills without touching anything else.
 
@@ -34,7 +34,7 @@ The idea is simple: **prompts in files, models in config, behavior in rules.** E
 | Agents | 12 | 6 primary (`code`, `debug`, `ask`, `planner`, `auditor`, `designer`) + 6 subagents (`general`, `explore`, `tester`, `security`, `librarian`, `documentarian`) |
 | Skills | 49 | Curated playbooks across 9 categories: writing, code-review, planning, agents, config, UI, devops, debugging, testing |
 | Rules | 7 | Always-on session guardrails, loaded via the `instructions` config |
-| Commands | 2 | `/update-pack` — sync pack files; `/install-pack` — AI-assisted install |
+| Commands | 1 | `/update-pack` — pull + sync pack files + register rules |
 
 ---
 
@@ -68,8 +68,6 @@ Don't like it? Restore and you're exactly where you started.
 
 Copy the repo contents into your Kilo config dir. No scripts, no merge helpers — plain copy.
 
-> 💡 **AI-assisted alternative:** Once `/install-pack` is available in your Kilo session, you can skip steps 1–4 below and just run `/install-pack` — an agent clones the repo (if needed), backs up your config, copies the pack, registers all rules in `kilo.jsonc`, and verifies the install. Manual steps below remain the canonical install path.
-
 ### 1. Clone the repo (recommended path)
 
 ```powershell
@@ -81,20 +79,6 @@ git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\.config\k
 # macOS / Linux (recommended)
 git clone https://github.com/PanPanFR/oh-my-kilo.git ~/.config/kilo/oh-my-kilo
 ```
-
-> **Clone elsewhere?** No problem. The `/install-pack` and `/update-pack` commands detect the repo automatically regardless of clone location. See [Commands](#-commands) for details.
-
-> **First-time setup:** `/install-pack` lives in the repo, not your config yet. Copy commands first, then let the agent handle the rest:
->
-> ```powershell
-> # pwsh — one-liner
-> Copy-Item "$env:USERPROFILE\.config\kilo\oh-my-kilo\command" "$env:USERPROFILE\.config\kilo\command" -Recurse -Force
-> ```
-> ```bash
-> # bash
-> cp -r ~/.config/kilo/oh-my-kilo/command ~/.config/kilo/command
-> ```
-> Start a new session → `/install-pack` → done. Future updates: `/update-pack`.
 
 ### 2. Copy into `~/.config/kilo` (no subfolder)
 
@@ -140,13 +124,7 @@ Start a new Kilo session or run `/reload`.
 
 ### 5. Updating the pack
 
-When a new version is available, just pull and run the command:
-
-```powershell
-git -C "$env:USERPROFILE\.config\kilo\oh-my-kilo" pull
-```
-
-Then start a new session and type `/update-pack` — the agent copies updated files and registers any new rules automatically.
+When a new version is available, just type `/update-pack` — the agent pulls the latest changes from GitHub and syncs everything automatically.
 
 > Full details, uninstall, and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md)
 
@@ -355,8 +333,7 @@ Reference: [docs/RULES.md](docs/RULES.md)
 
 | Command | Description |
 |---------|-------------|
-| `/update-pack [path]` | Update pack files (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`) in `~/.config/kilo` and register all rules in `kilo.jsonc` `instructions` |
-| `/install-pack [path]` | AI-assisted install — clone if missing, back up config, copy pack folders, register rules, set `skills.paths` |
+| `/update-pack [path]` | Pull latest changes from GitHub and sync pack files + register rules in `kilo.jsonc` |
 
 Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 
