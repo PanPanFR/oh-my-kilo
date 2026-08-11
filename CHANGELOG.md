@@ -7,6 +7,9 @@ All notable changes to oh-my-kilo are documented here.
 ### Changed
 - **`/sync-pack` renamed to `/update`** — simpler, more intuitive name. `command/sync-pack.md` → `command/update.md`; all docs updated.
 
+### Removed
+- **`/graphify` command** — `command/graphify.md` deleted. The `graphify` skill already appears as a slash entry, so the wrapper command only duplicated the menu item and invited wrong picks. The skill remains the single entry point; agent graphify protocols (code, planner, auditor, explore) are unchanged. Docs and install verification updated.
+
 ## [0.2.6] — 2026-08-11
 
 ### Changed

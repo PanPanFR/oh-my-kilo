@@ -10,7 +10,7 @@ Two extra tools power parts of the pack:
 
 | Tool | Why | Install |
 |------|-----|---------|
-| **graphify** | Builds/queries the knowledge graph used by the `graphify` rule, the `graphify` skill, and `/graphify` | `npm i -g graphify` |
+| **graphify** | Builds/queries the knowledge graph used by the `graphify` rule and skill | `npm i -g graphify` |
 | **agentmemory** | Persistent cross-session memory server; the `agentmemory` rule and its MCP expect it on `localhost:3111` | run `npx @agentmemory/mcp` with `AGENTMEMORY_URL=http://localhost:3111` |
 
 Without them the pack still works (plain search instead of graph queries; built-in `kilo_memory_recall`/`kilo_memory_save` instead of agentmemory). See [docs/CONFIGURATION.md](CONFIGURATION.md) for the `agentmemory` MCP block.
@@ -27,7 +27,9 @@ git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\.config\k
 git clone https://github.com/PanPanFR/oh-my-kilo.git ~/.config/kilo/oh-my-kilo
 ```
 
-> **Clone elsewhere?** No problem. The `/install-pack` and `/update` commands detect the repo automatically regardless of clone location.
+> **Clone elsewhere?** No problem. The `/install-pack` and `/update-pack` commands detect the repo automatically regardless of clone location.
+
+> **Want to use `/install-pack` instead?** Copy just the `command/` folder first (`rsync -a ~/.config/kilo/oh-my-kilo/command/ ~/.config/kilo/command/`), start a new session, then run `/install-pack`. It handles steps 2–4 automatically.
 
 ### 2. Copy the repo contents directly into your Kilo config dir
 

@@ -36,17 +36,17 @@ Ensure `skills.paths` in `kilo.jsonc` includes the config `skills` folder (`C:\U
 
 ## Step 6 — Write the repo marker
 
-Write the absolute path of the located repo to `~/.config/kilo/.pack-repo` (single line, no trailing newline). This lets `/update` find the repo later regardless of clone location.
+Write the absolute path of the located repo to `~/.config/kilo/.pack-repo` (single line, no trailing newline). This lets `/update-pack` find the repo later regardless of clone location.
 
 ## Step 7 — Verify and report
 
-Confirm all seven rule files are present in the config `rules/` and registered in `instructions`; confirm `command/graphify.md`, `command/update.md`, and `command/install-pack.md` exist in the config; confirm `skills.paths` points at the config `skills` folder. Summarize: repo location used, marker written, backup location, folders copied, rules registered, skills.paths status. Tell the user to start a new Kilo session or run `/reload`.
+Confirm all seven rule files are present in the config `rules/` and registered in `instructions`; confirm `command/graphify.md`, `command/update-pack.md`, and `command/install-pack.md` exist in the config; confirm `skills.paths` points at the config `skills` folder. Summarize: repo location used, marker written, backup location, folders copied, rules registered, skills.paths status. Tell the user to start a new Kilo session or run `/reload`.
 
 ## Rules
 
 - Never delete or overwrite user files outside the pack folders listed above.
 - If `kilo.jsonc` exists with user content, only touch `instructions` and `skills.paths`.
-- If the same pack appears already installed (all folders present and all rules registered), say so and only offer `/update` for updates instead of reinstalling.
+- If the same pack appears already installed (all folders present and all rules registered), say so and only offer `/update-pack` for updates instead of reinstalling.
 
 ## Examples
 

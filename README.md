@@ -2,7 +2,7 @@
 
 *A curated Kilo Code configuration with specialized agents, skills, rules, and workflows — built to make Kilo smarter and more autonomous out of the box.*
 
-**Kilo Code Agent Suite** · 12 agents · 49 skills · 7 rules · `/graphify`
+**Kilo Code Agent Suite** · 12 agents · 49 skills · 7 rules
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Agents](https://img.shields.io/badge/agents-12-orange)](#meet-the-agents)
@@ -17,7 +17,7 @@ A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) �
 - **12 specialized agents** — implementation, debugging, planning, auditing, UI, security, docs, and more, with a delegation hierarchy already designed
 - **49 skills** — battle-tested playbooks (TDD, systematic debugging, code review, writing-plans, web-perf) curated from popular community packs
 - **7 global rules** — always-on guardrails: English-only files, mandatory memory search, mandatory skill check, knowledge-graph-first navigation, parallel delegation, Cloudflare Workers doc-first, caveman/ponytail style
-- **1 command** — `/graphify` for building and querying codebase knowledge graphs
+- **2 commands** — `/update-pack` and `/install-pack` for syncing and installing the pack
 
 The idea is simple: **prompts in files, models in config, behavior in rules.** Edit an agent prompt by editing its file; switch models via Kilo Settings; add your own agents, rules, or skills without touching anything else.
 
@@ -34,7 +34,7 @@ The idea is simple: **prompts in files, models in config, behavior in rules.** E
 | Agents | 12 | 6 primary (`code`, `debug`, `ask`, `planner`, `auditor`, `designer`) + 6 subagents (`general`, `explore`, `tester`, `security`, `librarian`, `documentarian`) |
 | Skills | 49 | Curated playbooks across 9 categories: writing, code-review, planning, agents, config, UI, devops, debugging, testing |
 | Rules | 7 | Always-on session guardrails, loaded via the `instructions` config |
-| Commands | 1 | `/graphify` — build/query codebase knowledge graphs |
+| Commands | 2 | `/update-pack` — sync pack files; `/install-pack` — AI-assisted install |
 
 ---
 
@@ -82,7 +82,18 @@ git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\.config\k
 git clone https://github.com/PanPanFR/oh-my-kilo.git ~/.config/kilo/oh-my-kilo
 ```
 
-> **Clone elsewhere?** No problem. The `/install-pack` and `/update` commands detect the repo automatically regardless of clone location. See [Commands](#-commands) for details.
+> **Clone elsewhere?** No problem. The `/install-pack` and `/update-pack` commands detect the repo automatically regardless of clone location. See [Commands](#-commands) for details.
+
+> **First-time setup:** The `/install-pack` command lives in the repo's `command/` folder — not yet in your config. Copy it manually first, then let the agent handle the rest:
+> ```powershell
+> # Windows — minimal first-time copy (just the commands)
+> Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+> ```
+> ```bash
+> # macOS / Linux
+> rsync -a ~/.config/kilo/oh-my-kilo/command/ ~/.config/kilo/command/
+> ```
+> Now start a new Kilo session and run `/install-pack`. After that, future updates use `/update-pack`.
 
 ### 2. Copy into `~/.config/kilo` (no subfolder)
 
@@ -146,7 +157,7 @@ Not everything is mandatory. Pick the tier that matches what you need:
 
 | Tier | Includes | Best for |
 |------|----------|----------|
-| **Minimal** | Agents + skills + rules + `/graphify` command | Core setup — works with zero extra tools. No graphify? Plain search. No agentmemory? Built-in `kilo_memory_recall`/`kilo_memory_save`. |
+| **Minimal** | Agents + skills + rules + commands | Core setup — works with zero extra tools. No graphify? Plain search. No agentmemory? Built-in `kilo_memory_recall`/`kilo_memory_save`. |
 | **Recommended** | Minimal + MCP servers (`context7`, `chrome-devtools`, `playwright`) | Most users. Up-to-date docs lookup, browser control, automation — needs a free [context7](https://context7.com) API key. |
 | **Full** | Recommended + `graphify` + `agentmemory` | Power users. Knowledge graph for large codebases + persistent cross-session memory. |
 
@@ -258,7 +269,7 @@ What does this pack actually *do*? Here are five real prompts — and what happe
 
 **With oh-my-kilo:**
 - **Agent:** `code` (or any agent)
-- **Command:** `/graphify`
+- **Entry point:** `/graphify` (skill — from the slash menu)
 - **Skills:** `graphify`
 - **Rules:** graphify-first navigation (init graph if missing)
 - **Result:** structural map of the codebase — queries, paths, explanations — before touching code
@@ -333,8 +344,8 @@ Reference: [docs/RULES.md](docs/RULES.md)
 
 | Command | Description |
 |---------|-------------|
-| `/graphify [args]` | Build or query a graphify knowledge graph — `query`, `path`, `explain`, `update` |
-| `/update [path]` | Update pack files (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`) in `~/.config/kilo` and register all rules in `kilo.jsonc` `instructions` |
+| `/update-pack [path]` | Update pack files (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`) in `~/.config/kilo` and register all rules in `kilo.jsonc` `instructions` |
+| `/install-pack [path]` | AI-assisted install — clone if missing, back up config, copy pack folders, register rules, set `skills.paths` |
 
 Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 
@@ -357,7 +368,7 @@ Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 
 - Some skills require `skills.paths` configuration — without it, Kilo looks in the default `%USERPROFILE%\.kilo\skills\` directory
 - Rules are **not** auto-loaded from the `rules/` folder — each must be registered in `kilo.jsonc` `instructions` or via Settings → Agent Behaviour → Rules → Add Additional Instruction Files (see [docs/INSTALL.md](docs/INSTALL.md#4-register-rules-in-kilojsonc))
-- Graph workflows (`/graphify`, `graphify` rule) require `graphify` installed (`npm i -g graphify`)
+- Graph workflows (`graphify` skill/rule) require `graphify` installed (`npm i -g graphify`)
 - Persistent cross-session memory requires the `agentmemory` MCP server running on `localhost:3111`
 - Some MCPs require authentication (e.g. `context7` needs a free API key)
 - Some MCPs may require first-run setup (e.g. `npx playwright install chromium`)
@@ -373,7 +384,7 @@ Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 | [docs/AGENTS.md](docs/AGENTS.md) | The 12 agents — config model, when to use each, model recommendations |
 | [docs/SKILLS.md](docs/SKILLS.md) | How skills work, how to enable them, full skill table |
 | [docs/RULES.md](docs/RULES.md) | The 6 global rules in detail |
-| [docs/COMMANDS.md](docs/COMMANDS.md) | `/graphify` usage and examples |
+| [docs/COMMANDS.md](docs/COMMANDS.md) | Commands usage and examples |
 | [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | `kilo.jsonc` blocks: permissions, providers, MCPs, agents, indexing |
 
 ## 🙏 Credits
