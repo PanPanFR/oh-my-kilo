@@ -70,38 +70,40 @@ Copy the repo contents into your Kilo config dir. No scripts, no merge helpers �
 
 > 💡 **AI-assisted alternative:** Once `/install-pack` is available in your Kilo session, you can skip steps 1–4 below and just run `/install-pack` — an agent clones the repo (if needed), backs up your config, copies the pack, registers all rules in `kilo.jsonc`, and verifies the install. Manual steps below remain the canonical install path.
 
-### 1. Clone somewhere outside your Kilo config dir
+### 1. Clone the repo (recommended path)
 
 ```powershell
-# Windows
-git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\oh-my-kilo"
+# Windows (recommended)
+git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\.config\kilo\oh-my-kilo"
 ```
 
 ```bash
-# macOS / Linux
-git clone https://github.com/PanPanFR/oh-my-kilo.git ~/oh-my-kilo
+# macOS / Linux (recommended)
+git clone https://github.com/PanPanFR/oh-my-kilo.git ~/.config/kilo/oh-my-kilo
 ```
+
+> **Clone elsewhere?** No problem. The `/install-pack` and `/sync-pack` commands detect the repo automatically regardless of clone location. See [Commands](#-commands) for details.
 
 ### 2. Copy into `~/.config/kilo` (no subfolder)
 
 ```powershell
 # Windows
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\agents" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\docs" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\rules" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\skills" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item "$env:USERPROFILE\oh-my-kilo\AGENTS.md" "$env:USERPROFILE\.config\kilo\AGENTS.md" -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\agents" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\docs" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\rules" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\skills" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item "$env:USERPROFILE\.config\kilo\oh-my-kilo\AGENTS.md" "$env:USERPROFILE\.config\kilo\AGENTS.md" -Force
 ```
 
 ```bash
 # macOS / Linux
-rsync -a ~/oh-my-kilo/agents/ ~/.config/kilo/agents/
-rsync -a ~/oh-my-kilo/command/ ~/.config/kilo/command/
-rsync -a ~/oh-my-kilo/docs/ ~/.config/kilo/docs/
-rsync -a ~/oh-my-kilo/rules/ ~/.config/kilo/rules/
-rsync -a ~/oh-my-kilo/skills/ ~/.config/kilo/skills/
-cp ~/oh-my-kilo/AGENTS.md ~/.config/kilo/AGENTS.md
+rsync -a ~/.config/kilo/oh-my-kilo/agents/ ~/.config/kilo/agents/
+rsync -a ~/.config/kilo/oh-my-kilo/command/ ~/.config/kilo/command/
+rsync -a ~/.config/kilo/oh-my-kilo/docs/ ~/.config/kilo/docs/
+rsync -a ~/.config/kilo/oh-my-kilo/rules/ ~/.config/kilo/rules/
+rsync -a ~/.config/kilo/oh-my-kilo/skills/ ~/.config/kilo/skills/
+cp ~/.config/kilo/oh-my-kilo/AGENTS.md ~/.config/kilo/AGENTS.md
 ```
 
 ### 3. Configure the skills path

@@ -2,6 +2,11 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.2.6] — 2026-08-11
+
+### Changed
+- **Recommended clone path unified** — README and INSTALL.md now recommend cloning directly into `~/.config/kilo/oh-my-kilo` (same directory as the config), with a note that commands detect the repo automatically if cloned elsewhere.
+
 ## [0.2.5] — 2026-08-11
 
 ### Changed

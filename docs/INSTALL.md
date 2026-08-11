@@ -15,17 +15,19 @@ Two extra tools power parts of the pack:
 
 Without them the pack still works (plain search instead of graph queries; built-in `kilo_memory_recall`/`kilo_memory_save` instead of agentmemory). See [docs/CONFIGURATION.md](CONFIGURATION.md) for the `agentmemory` MCP block.
 
-### 1. Clone somewhere outside your Kilo config dir
+### 1. Clone the repo (recommended path)
 
 ```powershell
-# Windows
-git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\oh-my-kilo"
+# Windows (recommended)
+git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\.config\kilo\oh-my-kilo"
 ```
 
 ```bash
-# macOS / Linux
-git clone https://github.com/PanPanFR/oh-my-kilo.git ~/oh-my-kilo
+# macOS / Linux (recommended)
+git clone https://github.com/PanPanFR/oh-my-kilo.git ~/.config/kilo/oh-my-kilo
 ```
+
+> **Clone elsewhere?** No problem. The `/install-pack` and `/sync-pack` commands detect the repo automatically regardless of clone location.
 
 ### 2. Copy the repo contents directly into your Kilo config dir
 
@@ -33,22 +35,22 @@ No `oh-my-kilo` subfolder — the files land straight in `~/.config/kilo`.
 
 ```powershell
 # Windows
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\agents" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\docs" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\rules" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\skills" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item "$env:USERPROFILE\oh-my-kilo\AGENTS.md" "$env:USERPROFILE\.config\kilo\AGENTS.md" -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\agents" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\docs" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\rules" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\skills" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item "$env:USERPROFILE\.config\kilo\oh-my-kilo\AGENTS.md" "$env:USERPROFILE\.config\kilo\AGENTS.md" -Force
 ```
 
 ```bash
 # macOS / Linux
-rsync -a ~/oh-my-kilo/agents/ ~/.config/kilo/agents/
-rsync -a ~/oh-my-kilo/command/ ~/.config/kilo/command/
-rsync -a ~/oh-my-kilo/docs/ ~/.config/kilo/docs/
-rsync -a ~/oh-my-kilo/rules/ ~/.config/kilo/rules/
-rsync -a ~/oh-my-kilo/skills/ ~/.config/kilo/skills/
-cp ~/oh-my-kilo/AGENTS.md ~/.config/kilo/AGENTS.md
+rsync -a ~/.config/kilo/oh-my-kilo/agents/ ~/.config/kilo/agents/
+rsync -a ~/.config/kilo/oh-my-kilo/command/ ~/.config/kilo/command/
+rsync -a ~/.config/kilo/oh-my-kilo/docs/ ~/.config/kilo/docs/
+rsync -a ~/.config/kilo/oh-my-kilo/rules/ ~/.config/kilo/rules/
+rsync -a ~/.config/kilo/oh-my-kilo/skills/ ~/.config/kilo/skills/
+cp ~/.config/kilo/oh-my-kilo/AGENTS.md ~/.config/kilo/AGENTS.md
 ```
 
 ### 3. Configure skills path
