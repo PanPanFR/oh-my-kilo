@@ -2,6 +2,11 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.2.5] — 2026-08-11
+
+### Changed
+- **Repo locator for `/install-pack` and `/sync-pack`** — the user may clone the repo anywhere, so both commands now find it via an ordered strategy: explicit argument → marker file `~/.config/kilo/.pack-repo` (written on every install/sync) → active open file / working directory → well-known locations → fallback (clone for install, ask user for sync). Every candidate is validated by matching the `origin` remote URL.
+
 ## [0.2.4] — 2026-08-11
 
 ### Added
