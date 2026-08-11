@@ -69,6 +69,7 @@ Identify task type → match skill from table → load skill → follow instruct
 ### Step 3: GRAPHIFY (if codebase involved)
 ```
 If task involves code → check if graphify-out/graph.json exists.
+If no → run `graphify update .` to init (AST-only, one-time), then query.
 If yes → run graphify query/explain/path FIRST before browsing source.
 After code changes → run graphify update .
 ```

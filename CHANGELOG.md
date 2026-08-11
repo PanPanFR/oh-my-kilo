@@ -6,6 +6,7 @@ All notable changes to oh-my-kilo are documented here.
 
 ### Changed
 - **`/sync-pack` renamed to `/update`** — simpler, more intuitive name. `command/sync-pack.md` → `command/update.md`; all docs updated.
+- **Graphify automation replaces user activation** — `rules/graphify.md` rewritten: agents auto-init (`graphify update .`) when a task needs codebase understanding and the graph is missing, auto-query when it exists, auto-refresh after code changes. No more asking the user to run `/graphify`. `AGENTS.md` Step 3 and `planner` aligned; `docs/RULES.md` updated.
 
 ### Removed
 - **`/graphify` command** — `command/graphify.md` deleted. The `graphify` skill already appears as a slash entry, so the wrapper command only duplicated the menu item and invited wrong picks. The skill remains the single entry point; agent graphify protocols (code, planner, auditor, explore) are unchanged. Docs and install verification updated.

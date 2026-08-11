@@ -67,7 +67,7 @@ Seven global rules. **Not auto-loaded from the `rules/` folder** — each must b
 | **File** | `rules/graphify.md` |
 | **Always applies** | ✅ every codebase task |
 | **Problem** | Agents browse source files blindly — slow, misses cross-file relationships, and wastes context on irrelevant code. |
-| **What it changes** | Uses `graphify query`, `path`, and `explain` before manual source browsing. If no graph exists, init with `graphify update .` (AST-only, no API cost). After code changes, update the graph. If a task could benefit from graphify but the user hasn't activated it, the agent proactively tells the user about `/graphify`. |
+| **What it changes** | Uses `graphify query`, `path`, and `explain` before manual source browsing. If no graph exists, auto-inits with `graphify update .` (AST-only, no API cost). After code changes, updates the graph. Fully automatic — the agent runs it whenever the task needs codebase understanding, no user activation needed. |
 | **Trade-off** | Requires `graphify` installed (`npm i -g graphify`). Without it, falls back to plain search — no breakage, just slower navigation. |
 
 ---

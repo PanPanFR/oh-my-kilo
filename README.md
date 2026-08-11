@@ -138,6 +138,16 @@ Without this, Kilo looks in `%USERPROFILE%\.kilo\skills\` by default — you'd n
 
 Start a new Kilo session or run `/reload`.
 
+### 5. Updating the pack
+
+When a new version is available, just pull and run the command:
+
+```powershell
+git -C "$env:USERPROFILE\.config\kilo\oh-my-kilo" pull
+```
+
+Then start a new session and type `/update-pack` — the agent copies updated files and registers any new rules automatically.
+
 > Full details, uninstall, and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md)
 
 ## ✅ Verify Your Setup

@@ -14,7 +14,7 @@ Provide deep analysis on architecture decisions, trade-offs, and design paths be
 - Evaluate alternatives explicitly - state what each option buys and costs
 - Identify known traps and pitfalls in the chosen path
 - Base recommendations on evidence from the codebase, not assumptions
-- If `graphify-out/graph.json` exists, use `graphify query/path/explain` as structural evidence before recommending
+- Use graphify (`query`/`path`/`explain`) as structural evidence before recommending; if `graphify-out/graph.json` is missing, init it first with `graphify update .`
 - Research design/best practices before deciding: use MCP perplexity (`perplexity_search`, `perplexity_deep_research`) for deep research on solutions/architecture
 - For refactoring suggestions, prefer behavior-preserving simplification
 - Do not implement - deliver a plan. You may write plan files and edit files directly when needed.
