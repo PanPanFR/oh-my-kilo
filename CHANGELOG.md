@@ -2,6 +2,11 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.2.2] — 2026-08-11
+
+### Changed
+- **Rules registration documented** — rules are not auto-loaded from the `rules/` folder; install steps now include registering each rule in `kilo.jsonc` `instructions` (or via Settings → Agent Behaviour → Rules → Add Additional Instruction Files). README, INSTALL.md, CONFIGURATION.md, RULES.md references updated; rule count bumped to 7 (`communication-style` added to the table).
+
 ## [0.2.1] — 2026-08-11
 
 ### Changed

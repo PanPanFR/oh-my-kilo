@@ -175,7 +175,7 @@ Effective defaults are set by the user via Kilo Settings. Commented examples:
 | `share` | `"auto"` | Share analytics |
 | `experimental` | `{ "batch_tool": true, "codebase_search": true, "image_generation": false }` | Feature flags |
 | `web_search` | `true` | Enable web search |
-| `instructions` | `["rules/skill-reminder.md", ...]` | Rule files to load at session start |
+| `instructions` | `["rules/skill-reminder.md", ...]` | Rule files to load at session start. **Not auto-loaded from the `rules/` folder** — each rule file must be listed here (or added via Settings → Agent Behaviour → Rules → Add Additional Instruction Files). The pack ships 7 rules: `skill-reminder.md`, `delegation.md`, `workers.md`, `agentmemory.md`, `graphify.md`, `language.md`, `communication-style.md` |
 | `skills.paths` | `["C:\\Users\\<YourUser>\\.config\\kilo\\skills"]` | Where the copied `skills/` folder lives. Also settable via Settings → Agent Behaviour → Skills. Without it, Kilo looks in `%USERPROFILE%\.kilo\skills\` by default. |
 
 ## `{env:VAR}` Resolution

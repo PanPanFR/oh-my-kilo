@@ -1,6 +1,6 @@
 # Rules
 
-Six global rules, loaded at session start via the `instructions` key in `kilo.jsonc`:
+Seven global rules. **Not auto-loaded from the `rules/` folder** — each must be registered in the `instructions` key in `kilo.jsonc` (or via Settings → Agent Behaviour → Rules → Add Additional Instruction Files):
 
 ```jsonc
 "instructions": [
@@ -9,7 +9,8 @@ Six global rules, loaded at session start via the `instructions` key in `kilo.js
   "rules/skill-reminder.md",
   "rules/graphify.md",
   "rules/delegation.md",
-  "rules/workers.md"
+  "rules/workers.md",
+  "rules/communication-style.md"
 ]
 ```
 
@@ -96,3 +97,17 @@ Six global rules, loaded at session start via the `instructions` key in `kilo.js
 | **Problem** | LLM training data for Cloudflare Workers, KV, R2, D1, Durable Objects, and Wrangler is outdated. Agents hallucinate old APIs, deprecated flags, and wrong config patterns. |
 | **What it changes** | Before any Cloudflare-related work, the agent retrieves current documentation. Includes specific doc links, `npx wrangler` commands, and page limits. |
 | **Trade-off** | Adds a doc fetch step when touching Cloudflare files. But prevents deploying code with deprecated or wrong API calls — which is far more expensive to fix. |
+
+---
+
+## 07. Communication Style — The Voice
+
+> *Terse replies, minimal code. Every session, every agent.*
+
+| | |
+|---|---|
+| **File** | `rules/communication-style.md` |
+| **Always applies** | ✅ every session, every reply |
+| **Problem** | Agents drift into verbose filler, over-built code, and status phrases that waste tokens and readability. |
+| **What it changes** | Mandates Caveman-style compressed replies (~65% fewer output tokens) and Ponytail-style minimal code (YAGNI, stdlib-first, shortest working diff) in every response. Replaces the duplicate style blocks previously copied into each `agents/*.md`. |
+| **Trade-off** | Ultra-terse replies can feel abrupt; the rule explicitly relaxes to normal prose for security warnings, irreversible actions, and multi-step sequences where clarity matters. |

@@ -65,7 +65,25 @@ Add to your `kilo.jsonc`:
 
 Or via **Kilo Settings UI**: Settings → Agent Behaviour → Skills → scroll to bottom → add skill folder path `C:\Users\<YourUser>\.config\kilo\skills`.
 
-### 4. Restart
+### 4. Register rules in `kilo.jsonc`
+
+Rules are **not** auto-loaded from the `rules/` folder. Register each rule file under `instructions` in your `kilo.jsonc`:
+
+```jsonc
+"instructions": [
+  "rules/skill-reminder.md",
+  "rules/delegation.md",
+  "rules/workers.md",
+  "rules/agentmemory.md",
+  "rules/graphify.md",
+  "rules/language.md",
+  "rules/communication-style.md"
+]
+```
+
+Or via **Kilo Settings UI**: Settings → Agent Behaviour → Rules → Add Additional Instruction Files → select each file in `C:\Users\<YourUser>\.config\kilo\rules` → Add.
+
+### 5. Restart
 
 Start a new Kilo session or run `/reload`.
 
@@ -78,3 +96,7 @@ Remove the copied folders and `AGENTS.md` from your Kilo config dir.
 ### Skills not loading
 
 Verify `skills.paths` in your `kilo.jsonc` points to the copied `skills/` directory.
+
+### Rules not loading
+
+Rules are not loaded by folder presence — each must be registered in the `instructions` array of your `kilo.jsonc` (or via Settings → Agent Behaviour → Rules → Add Additional Instruction Files). See [Step 4](#4-register-rules-in-kilojsonc).

@@ -2,7 +2,7 @@
 
 *A curated Kilo Code configuration with specialized agents, skills, rules, and workflows — built to make Kilo smarter and more autonomous out of the box.*
 
-**Kilo Code Agent Suite** · 12 agents · 49 skills · 6 rules · `/graphify`
+**Kilo Code Agent Suite** · 12 agents · 49 skills · 7 rules · `/graphify`
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Agents](https://img.shields.io/badge/agents-12-orange)](#meet-the-agents)
@@ -16,7 +16,7 @@ A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) �
 
 - **12 specialized agents** — implementation, debugging, planning, auditing, UI, security, docs, and more, with a delegation hierarchy already designed
 - **49 skills** — battle-tested playbooks (TDD, systematic debugging, code review, writing-plans, web-perf) curated from popular community packs
-- **6 global rules** — always-on guardrails: English-only files, mandatory memory search, mandatory skill check, knowledge-graph-first navigation, parallel delegation, Cloudflare Workers doc-first
+- **7 global rules** — always-on guardrails: English-only files, mandatory memory search, mandatory skill check, knowledge-graph-first navigation, parallel delegation, Cloudflare Workers doc-first, caveman/ponytail style
 - **1 command** — `/graphify` for building and querying codebase knowledge graphs
 
 The idea is simple: **prompts in files, models in config, behavior in rules.** Edit an agent prompt by editing its file; switch models via Kilo Settings; add your own agents, rules, or skills without touching anything else.
@@ -33,7 +33,7 @@ The idea is simple: **prompts in files, models in config, behavior in rules.** E
 |-----------|-------|--------------|
 | Agents | 12 | 6 primary (`code`, `debug`, `ask`, `planner`, `auditor`, `designer`) + 6 subagents (`general`, `explore`, `tester`, `security`, `librarian`, `documentarian`) |
 | Skills | 49 | Curated playbooks across 9 categories: writing, code-review, planning, agents, config, UI, devops, debugging, testing |
-| Rules | 6 | Always-on session guardrails, loaded via the `instructions` config |
+| Rules | 7 | Always-on session guardrails, loaded via the `instructions` config |
 | Commands | 1 | `/graphify` — build/query codebase knowledge graphs |
 
 ---
@@ -311,7 +311,7 @@ Full 49-skill table with descriptions: [docs/SKILLS.md](docs/SKILLS.md)
 
 ## ⚙️ Rules
 
-Six global rules, loaded at session start via the `instructions` config. Each mandates a behavior for every session.
+Seven global rules. **Rules are NOT auto-loaded from the `rules/` folder** — each file must be registered in your `kilo.jsonc` under `instructions`, or added via Settings → Agent Behaviour → Rules → Add Additional Instruction Files → select the file → Add.
 
 | Rule | Applies | Mandate |
 |------|---------|---------|
@@ -321,6 +321,7 @@ Six global rules, loaded at session start via the `instructions` config. Each ma
 | `graphify` | always | Use the knowledge graph for codebase questions; init if missing |
 | `delegation` | always | Delegate specialized work to subagents; run independent subtasks in parallel |
 | `workers` | on Cloudflare files | Prefer current Cloudflare docs over training data |
+| `communication-style` | always | Caveman (terse) replies and Ponytail (minimal) code style in every session |
 
 Reference: [docs/RULES.md](docs/RULES.md)
 
@@ -350,6 +351,7 @@ Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 ## ⚠️ Known Limitations
 
 - Some skills require `skills.paths` configuration — without it, Kilo looks in the default `%USERPROFILE%\.kilo\skills\` directory
+- Rules are **not** auto-loaded from the `rules/` folder — each must be registered in `kilo.jsonc` `instructions` or via Settings → Agent Behaviour → Rules → Add Additional Instruction Files (see [docs/INSTALL.md](docs/INSTALL.md#4-register-rules-in-kilojsonc))
 - Graph workflows (`/graphify`, `graphify` rule) require `graphify` installed (`npm i -g graphify`)
 - Persistent cross-session memory requires the `agentmemory` MCP server running on `localhost:3111`
 - Some MCPs require authentication (e.g. `context7` needs a free API key)
