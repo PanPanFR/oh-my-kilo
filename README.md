@@ -84,16 +84,17 @@ git clone https://github.com/PanPanFR/oh-my-kilo.git ~/.config/kilo/oh-my-kilo
 
 > **Clone elsewhere?** No problem. The `/install-pack` and `/update-pack` commands detect the repo automatically regardless of clone location. See [Commands](#-commands) for details.
 
-> **First-time setup:** The `/install-pack` command lives in the repo's `command/` folder — not yet in your config. Copy it manually first, then let the agent handle the rest:
+> **First-time setup:** `/install-pack` lives in the repo, not your config yet. Copy commands first, then let the agent handle the rest:
+>
 > ```powershell
-> # Windows — minimal first-time copy (just the commands)
-> Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+> # pwsh — one-liner
+> Copy-Item "$env:USERPROFILE\.config\kilo\oh-my-kilo\command" "$env:USERPROFILE\.config\kilo\command" -Recurse -Force
 > ```
 > ```bash
-> # macOS / Linux
-> rsync -a ~/.config/kilo/oh-my-kilo/command/ ~/.config/kilo/command/
+> # bash
+> cp -r ~/.config/kilo/oh-my-kilo/command ~/.config/kilo/command
 > ```
-> Now start a new Kilo session and run `/install-pack`. After that, future updates use `/update-pack`.
+> Start a new session → `/install-pack` → done. Future updates: `/update-pack`.
 
 ### 2. Copy into `~/.config/kilo` (no subfolder)
 
