@@ -2,6 +2,11 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.2.1] — 2026-08-11
+
+### Changed
+- **`commands/` renamed to `command/`** — matches the actual Kilo config layout (`~/.config/kilo/command/`), so install copies land directly in the right place and no duplicate command folder is created. Docs and install snippets updated.
+
 ## [0.2.0] — 2026-08-10
 
 ### Added

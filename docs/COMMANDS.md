@@ -6,7 +6,7 @@ oh-my-kilo ships one slash command: `/graphify`.
 
 **Description:** Build or query a graphify knowledge graph.
 
-**Implementation:** `commands/graphify.md` — the command body delegates to the `graphify` skill, passing the full argument string through unchanged.
+**Implementation:** `command/graphify.md` — the command body delegates to the `graphify` skill, passing the full argument string through unchanged.
 
 ### Usage
 

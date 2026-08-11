@@ -56,7 +56,7 @@ cp -r ~/.config/kilo ~/.config/kilo.backup-$(date +%Y%m%d)
 
 ```bash
 # macOS / Linux
-rm -rf ~/.config/kilo/agents ~/.config/kilo/skills ~/.config/kilo/rules ~/.config/kilo/commands ~/.config/kilo/docs ~/.config/kilo/AGENTS.md
+rm -rf ~/.config/kilo/agents ~/.config/kilo/skills ~/.config/kilo/rules ~/.config/kilo/command ~/.config/kilo/docs ~/.config/kilo/AGENTS.md
 cp -r ~/.config/kilo.backup-YYYYMMDD/* ~/.config/kilo/
 ```
 
@@ -85,7 +85,7 @@ git clone https://github.com/PanPanFR/oh-my-kilo.git ~/oh-my-kilo
 ```powershell
 # Windows
 Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\agents" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\commands" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\docs" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\rules" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\skills" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
@@ -95,7 +95,7 @@ Copy-Item "$env:USERPROFILE\oh-my-kilo\AGENTS.md" "$env:USERPROFILE\.config\kilo
 ```bash
 # macOS / Linux
 rsync -a ~/oh-my-kilo/agents/ ~/.config/kilo/agents/
-rsync -a ~/oh-my-kilo/commands/ ~/.config/kilo/commands/
+rsync -a ~/oh-my-kilo/command/ ~/.config/kilo/command/
 rsync -a ~/oh-my-kilo/docs/ ~/.config/kilo/docs/
 rsync -a ~/oh-my-kilo/rules/ ~/.config/kilo/rules/
 rsync -a ~/oh-my-kilo/skills/ ~/.config/kilo/skills/

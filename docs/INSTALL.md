@@ -34,7 +34,7 @@ No `oh-my-kilo` subfolder — the files land straight in `~/.config/kilo`.
 ```powershell
 # Windows
 Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\agents" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\commands" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
+Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\docs" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\rules" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\oh-my-kilo\skills" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
@@ -44,7 +44,7 @@ Copy-Item "$env:USERPROFILE\oh-my-kilo\AGENTS.md" "$env:USERPROFILE\.config\kilo
 ```bash
 # macOS / Linux
 rsync -a ~/oh-my-kilo/agents/ ~/.config/kilo/agents/
-rsync -a ~/oh-my-kilo/commands/ ~/.config/kilo/commands/
+rsync -a ~/oh-my-kilo/command/ ~/.config/kilo/command/
 rsync -a ~/oh-my-kilo/docs/ ~/.config/kilo/docs/
 rsync -a ~/oh-my-kilo/rules/ ~/.config/kilo/rules/
 rsync -a ~/oh-my-kilo/skills/ ~/.config/kilo/skills/

@@ -24,7 +24,7 @@ oh-my-kilo/
 │   ├── documentarian.md # documentation writing
 │   └── designer.md    #   UI/UX implementation
 │
-├── commands/          # Slash commands
+├── command/           # Slash commands
 │   └── graphify.md    #   /graphify — build/query knowledge graphs
 │
 ├── rules/             # Global rules loaded at session start
@@ -56,7 +56,7 @@ oh-my-kilo/
 |------|---------|-------|
 | `AGENTS.md` | yes | Global instructions, loaded automatically |
 | `agents/` | yes | System prompts for the 12 agents |
-| `commands/` | yes | Slash commands |
+| `command/` | yes | Slash commands |
 | `rules/` | yes | Loaded via `instructions` config key |
 | `skills/` | yes | Must be registered in `skills.paths` |
 | `docs/` | yes | Reference material; optional to copy |
