@@ -1,6 +1,6 @@
 # Commands Reference
 
-oh-my-kilo ships two slash commands: `/graphify` and `/sync-pack`.
+oh-my-kilo ships three slash commands: `/graphify`, `/sync-pack`, and `/install-pack`.
 
 ## `/graphify`
 
@@ -36,3 +36,27 @@ oh-my-kilo ships two slash commands: `/graphify` and `/sync-pack`.
 
 - The `graphify` CLI must be installed (`npm i -g graphify` or via your package manager).
 - For `query` / `path` / `explain`, a graph must already exist (`graphify-out/graph.json`). Use `/graphify <path> --update` to create one.
+
+## `/install-pack`
+
+**Description:** AI-assisted pack installation — the alternative to the manual Quick Start steps. The agent clones the repo if missing, backs up your existing config (`kilo.backup-<timestamp>`), copies pack folders into `~/.config/kilo`, registers every rule in `kilo.jsonc` `instructions`, sets `skills.paths`, and verifies the result.
+
+**Implementation:** `command/install-pack.md`
+
+| Args | Effect |
+|------|--------|
+| *(none)* | Use `~/.config/kilo/oh-my-kilo` as the pack repo; clone if missing |
+| `<path>` | Use the given path as an existing pack repo |
+
+### Examples
+
+```
+/install-pack
+/install-pack C:\Users\me\oh-my-kilo
+```
+
+### Notes
+
+- Never deletes or overwrites files outside the pack folders (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`).
+- Only touches `instructions` and `skills.paths` in an existing `kilo.jsonc`.
+- If the pack is already installed, the command reports it and suggests `/sync-pack` for updates instead.

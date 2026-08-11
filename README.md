@@ -68,6 +68,8 @@ Don't like it? Restore and you're exactly where you started.
 
 Copy the repo contents into your Kilo config dir. No scripts, no merge helpers — plain copy.
 
+> 💡 **AI-assisted alternative:** Once `/install-pack` is available in your Kilo session, you can skip steps 1–4 below and just run `/install-pack` — an agent clones the repo (if needed), backs up your config, copies the pack, registers all rules in `kilo.jsonc`, and verifies the install. Manual steps below remain the canonical install path.
+
 ### 1. Clone somewhere outside your Kilo config dir
 
 ```powershell

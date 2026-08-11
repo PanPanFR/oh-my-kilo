@@ -2,6 +2,11 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.2.4] — 2026-08-11
+
+### Added
+- **`/install-pack` command** — `command/install-pack.md`: AI-assisted alternative to manual install. Clones the repo if missing, backs up existing config to `kilo.backup-<timestamp>`, copies pack folders (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`), registers all rules in `kilo.jsonc` `instructions`, sets `skills.paths`, and verifies. Manual Quick Start steps in README/INSTALL.md are kept as the canonical path.
+
 ## [0.2.3] — 2026-08-11
 
 ### Added
