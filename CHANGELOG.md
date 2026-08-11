@@ -2,6 +2,11 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.2.3] — 2026-08-11
+
+### Added
+- **`/sync-pack` command** — `command/sync-pack.md`: copies pack folders (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`) into `~/.config/kilo`, registers every file in `rules/` into the `kilo.jsonc` `instructions` array, and verifies `skills.paths`. Never touches other `kilo.jsonc` keys or user customizations.
+
 ## [0.2.2] — 2026-08-11
 
 ### Changed

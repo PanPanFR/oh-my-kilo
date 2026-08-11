@@ -1,6 +1,6 @@
 # Commands Reference
 
-oh-my-kilo ships one slash command: `/graphify`.
+oh-my-kilo ships two slash commands: `/graphify` and `/sync-pack`.
 
 ## `/graphify`
 

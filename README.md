@@ -330,6 +330,7 @@ Reference: [docs/RULES.md](docs/RULES.md)
 | Command | Description |
 |---------|-------------|
 | `/graphify [args]` | Build or query a graphify knowledge graph — `query`, `path`, `explain`, `update` |
+| `/sync-pack [path]` | Sync pack files (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`) into `~/.config/kilo` and register all rules in `kilo.jsonc` `instructions` |
 
 Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 

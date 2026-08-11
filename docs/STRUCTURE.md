@@ -25,7 +25,8 @@ oh-my-kilo/
 │   └── designer.md    #   UI/UX implementation
 │
 ├── command/           # Slash commands
-│   └── graphify.md    #   /graphify — build/query knowledge graphs
+│   ├── graphify.md    #   /graphify — build/query knowledge graphs
+│   └── sync-pack.md   #   /sync-pack — copy pack into config + register rules
 │
 ├── rules/             # Global rules loaded at session start
 │   ├── language.md            # English-only file content
