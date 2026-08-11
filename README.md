@@ -82,7 +82,7 @@ git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\.config\k
 git clone https://github.com/PanPanFR/oh-my-kilo.git ~/.config/kilo/oh-my-kilo
 ```
 
-> **Clone elsewhere?** No problem. The `/install-pack` and `/sync-pack` commands detect the repo automatically regardless of clone location. See [Commands](#-commands) for details.
+> **Clone elsewhere?** No problem. The `/install-pack` and `/update` commands detect the repo automatically regardless of clone location. See [Commands](#-commands) for details.
 
 ### 2. Copy into `~/.config/kilo` (no subfolder)
 
@@ -334,7 +334,7 @@ Reference: [docs/RULES.md](docs/RULES.md)
 | Command | Description |
 |---------|-------------|
 | `/graphify [args]` | Build or query a graphify knowledge graph — `query`, `path`, `explain`, `update` |
-| `/sync-pack [path]` | Sync pack files (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`) into `~/.config/kilo` and register all rules in `kilo.jsonc` `instructions` |
+| `/update [path]` | Update pack files (`agents/`, `command/`, `rules/`, `skills/`, `AGENTS.md`) in `~/.config/kilo` and register all rules in `kilo.jsonc` `instructions` |
 
 Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 

@@ -27,7 +27,7 @@ git clone https://github.com/PanPanFR/oh-my-kilo.git "$env:USERPROFILE\.config\k
 git clone https://github.com/PanPanFR/oh-my-kilo.git ~/.config/kilo/oh-my-kilo
 ```
 
-> **Clone elsewhere?** No problem. The `/install-pack` and `/sync-pack` commands detect the repo automatically regardless of clone location.
+> **Clone elsewhere?** No problem. The `/install-pack` and `/update` commands detect the repo automatically regardless of clone location.
 
 ### 2. Copy the repo contents directly into your Kilo config dir
 

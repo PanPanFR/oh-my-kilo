@@ -1,14 +1,14 @@
 ---
-description: Sync oh-my-kilo pack files into the Kilo config and register rules in kilo.jsonc
+description: Update oh-my-kilo pack in the Kilo config and register rules in kilo.jsonc
 ---
 
-Sync the oh-my-kilo pack into the Kilo config directory and register all rules in `kilo.jsonc`.
+Update the oh-my-kilo pack in the Kilo config directory and register all rules in `kilo.jsonc`.
 
 ## Step 1 — Locate the pack repo
 
 The user may have cloned the repo anywhere. Find it in this order, validating each candidate (must be a git repo whose `origin` remote matches `https://github.com/PanPanFR/oh-my-kilo.git` — check with `git -C <path> remote get-url origin`):
 
-1. **Explicit argument** — if `/sync-pack <path>` was given, validate and use that path.
+1. **Explicit argument** — if `/update <path>` was given, validate and use that path.
 2. **Marker file** — read `~/.config/kilo/.pack-repo` (written by `/install-pack` or a previous sync). Validate and use if it points at a valid repo.
 3. **Active file / working directory** — if the currently open file or the agent's working directory is inside a git repo matching the pack URL, use that repo root.
 4. **Well-known locations**, first match wins: `~/.config/kilo/oh-my-kilo`, `~/oh-my-kilo`, `~/Documents/oh-my-kilo`, `~/repos/oh-my-kilo`, `~/Projects/oh-my-kilo`, `~/code/oh-my-kilo`, `~/dev/oh-my-kilo`.
@@ -42,5 +42,5 @@ List what was copied and which rules were added to `instructions`. Tell the user
 
 ## Examples
 
-- `/sync-pack`
-- `/sync-pack C:\Users\me\oh-my-kilo`
+- `/update`
+- `/update C:\Users\me\oh-my-kilo`

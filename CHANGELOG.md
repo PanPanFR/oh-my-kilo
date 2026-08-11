@@ -2,6 +2,11 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.2.7] — 2026-08-11
+
+### Changed
+- **`/sync-pack` renamed to `/update`** — simpler, more intuitive name. `command/sync-pack.md` → `command/update.md`; all docs updated.
+
 ## [0.2.6] — 2026-08-11
 
 ### Changed
