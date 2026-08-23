@@ -113,14 +113,17 @@ After code changes → run graphify update .
 
 | Subagent | Use For |
 |----------|----------|
-| `security` | Security audits, vulnerability scanning, OWASP checks |
-| `documentarian` | Documentation quality, completeness, accuracy |
-| `tester` | Test coverage, test quality, edge cases |
+| `general` | UI/frontend builds, refactors, multi-step execution of well-defined tasks |
+| `researcher` | External research - library/framework/API docs with cited findings |
+| `tester` | Test suites - write, run, iterate failures in isolation |
+| `reviewer` | Code + security review of diffs vs standards and spec (read-only) |
+| `docs` | Technical writing - create and improve documentation in `docs/` |
+| `explore` | Codebase recon, pattern finding, file location |
 
 ### Common Parallel Patterns
 
-**Full audit** → launch `security` + `auditor` in parallel
-**Code review** → launch `security` + `clean-code` in parallel
-**New feature** → launch `tester` + `explore` in parallel
+**Full audit** → launch `explore` + `reviewer` in parallel
+**Code review** → launch `explore` + `reviewer` in parallel
+**New feature** → launch `plan` + `explore` + `researcher` in parallel
 **Bug fix** → launch `debug` + `tester` in parallel
-**Refactoring** → launch `auditor` + `tester` in parallel
+**Refactoring** → launch `plan` + `explore` in parallel

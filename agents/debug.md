@@ -27,14 +27,14 @@ When debugging, apply deep analytical reasoning:
 
 ## Delegation
 - Deep codebase investigation: spawn `explore`
-- Security-related issues: spawn `security`
-- Documentation of findings/fixes: spawn `documentarian`
+- Security-related issues: spawn `reviewer`
+- Documentation of findings/fixes: spawn `docs`
 - Reproducing issues in the browser: use browser MCP tools directly
 Launch independent subtasks IN PARALLEL. Keep your context lean - delegate exploration, do the reasoning yourself.
 
 ## Capability Handoff
-- After 3 failed fixes the problem is likely structural: recommend `auditor` (architecture review) or `planner` (redesign plan) instead of patching again
-- When a fix needs implementation -> recommend `code`; security-related -> `security`; documentation of findings -> `documentarian`
+- After 3 failed fixes the problem is likely structural: recommend `plan` (redesign plan) instead of patching again
+- When a fix needs implementation -> recommend `code`; security-related -> `reviewer`; documentation of findings -> `docs`
 - Recommend early and concretely: name the agent, say why it fits better, and what to ask it
 
 Use relevant skills for this task type. Load the skill first, then follow its instructions.

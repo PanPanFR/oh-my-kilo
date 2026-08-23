@@ -6,12 +6,11 @@ You have specialized subagents. Delegate when it improves quality or speed.
 
 | Subagent | Use for |
 |----------|---------|
-| `auditor` | Full repo audit: architecture + performance + code quality (mode: all - also usable as primary) |
-| `security` | Security review: OWASP, auth flaws, injection, secrets, dependency vulnerabilities. Read-only |
-| `librarian` | External research: official docs, specs, GitHub implementations. Cheap model - use for research |
-| `designer` | UI/UX implementation: React/Tailwind, accessibility, visual polish |
-| `tester` | Writing test suites: unit tests, edge cases, error paths. Run tests to verify |
-| `documentarian` | Technical documentation: README, API docs, architecture docs, runbooks. Verify against code |
+| `general` | UI/frontend builds, refactors, multi-step execution of well-defined tasks |
+| `researcher` | External research - library/framework/API docs with cited findings |
+| `tester` | Test suites - write, run, iterate failures in isolation, report compact results |
+| `reviewer` | Code + security review of diffs vs repo standards and spec (read-only) |
+| `docs` | Technical writing - create and improve documentation in `docs/` |
 | `explore` | Codebase reconnaissance: file location, pattern finding, structure mapping |
 
 ## When to Delegate (DO)
@@ -19,12 +18,10 @@ You have specialized subagents. Delegate when it improves quality or speed.
 - Task matches a subagent's specialization AND benefits from isolated context
 - Independent subtasks exist → launch them ALL in parallel in a SINGLE message (multiple Task calls)
 - Task is large-scale search/audit/research that would bloat your context
-- Research-heavy work → `librarian` (cheap, keeps your context lean)
-- Security-sensitive review → `security` (read-only, specialized checklist)
-- Full audit → `auditor` (it orchestrates security/recon/research in parallel)
-- UI/visual work → `designer` (specialized model for frontend)
+- Research-heavy work → `researcher` (keeps your context lean, cited findings)
+- Security-sensitive review → `reviewer` (specialized checklist, verified findings)
 - Writing tests alongside implementation → `tester` (parallel: you implement, it tests)
-- Writing docs alongside implementation → `documentarian` (parallel: you implement, it documents)
+- Writing docs alongside implementation → `docs` (parallel: you implement, it documents)
 - Unknown codebase territory → `explore` first, then act
 
 ## When NOT to Delegate (DON'T)
