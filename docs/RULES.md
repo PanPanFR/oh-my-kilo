@@ -16,8 +16,6 @@ Seven global rules. **Not auto-loaded from the `rules/` folder** — each must b
 
 **Order matters:** `agentmemory` and `graphify` are first-action protocols, so they are listed first — earliest entries land earliest in the assembled context and get measurably better compliance.
 
-**Enforcement layer:** rules alone rely on prompt compliance. The optional `plugins/graphify.js` plugin (see [INSTALL.md](INSTALL.md#5-register-the-enforcement-plugin)) enforces the two first-action protocols mechanically by injecting a protocol block into every session's system prompt.
-
 ---
 
 ## 01. Language — The Wall

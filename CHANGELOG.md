@@ -2,6 +2,11 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.4.3] - 2026-08-23
+
+### Removed
+- **`plugins/graphify.js` enforcement plugin** — reverted after real-world use: extra install/registration step not worth the complexity. Protocol adherence now relies on rules alone, with `agentmemory`/`graphify` kept first in the recommended `instructions` order (position in context is what actually moves compliance). All plugin references removed from README, INSTALL.md (step 5 + troubleshooting), RULES.md, CONFIGURATION.md, STRUCTURE.md, and `/update-pack`.
+
 ## [0.4.2] - 2026-08-23
 
 ### Added

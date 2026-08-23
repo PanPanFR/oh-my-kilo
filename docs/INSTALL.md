@@ -38,7 +38,6 @@ No `oh-my-kilo` subfolder — the files land straight in `~/.config/kilo`.
 Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\agents" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\command" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\docs" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
-Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\plugins" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\rules" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item -Path "$env:USERPROFILE\.config\kilo\oh-my-kilo\skills" -Destination "$env:USERPROFILE\.config\kilo" -Recurse -Force
 Copy-Item "$env:USERPROFILE\.config\kilo\oh-my-kilo\AGENTS.md" "$env:USERPROFILE\.config\kilo\AGENTS.md" -Force
@@ -49,7 +48,6 @@ Copy-Item "$env:USERPROFILE\.config\kilo\oh-my-kilo\AGENTS.md" "$env:USERPROFILE
 rsync -a ~/.config/kilo/oh-my-kilo/agents/ ~/.config/kilo/agents/
 rsync -a ~/.config/kilo/oh-my-kilo/command/ ~/.config/kilo/command/
 rsync -a ~/.config/kilo/oh-my-kilo/docs/ ~/.config/kilo/docs/
-rsync -a ~/.config/kilo/oh-my-kilo/plugins/ ~/.config/kilo/plugins/
 rsync -a ~/.config/kilo/oh-my-kilo/rules/ ~/.config/kilo/rules/
 rsync -a ~/.config/kilo/oh-my-kilo/skills/ ~/.config/kilo/skills/
 cp ~/.config/kilo/oh-my-kilo/AGENTS.md ~/.config/kilo/AGENTS.md
@@ -89,26 +87,7 @@ Rules are **not** auto-loaded from the `rules/` folder. Register each rule file 
 
 Or via **Kilo Settings UI**: Settings → Agent Behaviour → Rules → Add Additional Instruction Files → select each file in `C:\Users\<YourUser>\.config\kilo\rules` → Add.
 
-### 5. Register the enforcement plugin
-
-The `plugins/graphify.js` plugin enforces the two first-action protocols mechanically instead of relying on prompt compliance:
-
-1. Injects a mandatory protocol block (recall → graphify → save) into the **system prompt of every session** via `experimental.chat.system.transform`.
-2. Prefixes the session's first bash call with a reminder — even when the project has no graph yet (it tells the agent to run `graphify update .`).
-
-Register it in your **global** `kilo.jsonc` (`~/.config/kilo/kilo.jsonc`) — not a project-level config, or it will only load inside that one project:
-
-```jsonc
-"plugin": [
-  "file:///C:/Users/<YourUser>/.config/kilo/plugins/graphify.js"
-]
-```
-
-macOS / Linux path form: `"file:///home/<you>/.config/kilo/plugins/graphify.js"`.
-
-Optional but recommended: delete any stale registration from project-scope configs (e.g. `~/.config/kilo/.kilo/kilo.json`) — those only load when Kilo runs from that exact directory, so the plugin silently never fires elsewhere.
-
-### 6. Restart
+### 5. Restart
 
 Start a new Kilo session or run `/reload`.
 
@@ -124,8 +103,4 @@ Verify `skills.paths` in your `kilo.jsonc` points to the copied `skills/` direct
 
 ### Rules not loading
 
-Rules are not loaded by folder presence — each must be registered in the `instructions` array of your `kilo.jsonc` (or via Settings → Agent Behaviour → Rules → Add Additional Instruction Files). See [Step 4](#4-register-rules-in-kilojsonc).
-
-### Plugin not loading
-
-The `plugin` key must live in your **global** config (`~/.config/kilo/kilo.jsonc`). A registration in a project-level `.kilo/kilo.json` only applies when Kilo runs from that directory — in every other project the plugin is silently absent. See [Step 5](#5-register-the-enforcement-plugin).
+Rules are not loaded by folder presence — each must be registered in the `instructions` array of your `kilo.jsonc` (or via Settings → Agent Behaviour → Rules → Add Additional Instruction Files). See [Step 4](#4-register-rules-in-kilojsonc). If protocol rules (agentmemory, graphify) are still skipped by the model, confirm they sit at the **top** of the `instructions` array — position in the context measurably affects compliance.

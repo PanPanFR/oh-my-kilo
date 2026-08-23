@@ -176,7 +176,6 @@ Effective defaults are set by the user via Kilo Settings. Commented examples:
 | `experimental` | `{ "batch_tool": true, "codebase_search": true, "image_generation": false }` | Feature flags |
 | `web_search` | `true` | Enable web search |
 | `instructions` | `["rules/agentmemory.md", ...]` | Rule files to load at session start. **Not auto-loaded from the `rules/` folder** — each rule file must be listed here (or added via Settings → Agent Behaviour → Rules → Add Additional Instruction Files). The pack ships 7 rules: `agentmemory.md`, `graphify.md`, `skill-reminder.md`, `delegation.md`, `workers.md`, `language.md`, `communication-style.md`. **List the two protocol rules (`agentmemory`, `graphify`) first** — earliest entries land earliest in context and get better compliance. |
-| `plugin` | `["file:///C:/Users/<YourUser>/.config/kilo/plugins/graphify.js"]` | Registers the enforcement plugin. Must be in the **global** config — a project-level `.kilo/kilo.json` registration only loads when Kilo runs from that directory. See [INSTALL.md Step 5](INSTALL.md#5-register-the-enforcement-plugin). |
 | `skills.paths` | `["C:\\Users\\<YourUser>\\.config\\kilo\\skills"]` | Where the copied `skills/` folder lives. Also settable via Settings → Agent Behaviour → Skills. Without it, Kilo looks in `%USERPROFILE%\.kilo\skills\` by default. |
 
 ## `{env:VAR}` Resolution

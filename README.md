@@ -12,7 +12,7 @@
 
 ## What is oh-my-kilo?
 
-A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) — plain files you copy into `~/.config/kilo`. No build step, and the one optional plugin ships as a single file. Works identically on **both the Kilo Code CLI and the Kilo Code VS Code extension** — one pack, both surfaces. Instead of building your AI coding workflow from scratch, you get a curated, opinionated setup that works immediately:
+A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) — plain files you copy into `~/.config/kilo`. No plugin runtime, no build step. Works identically on **both the Kilo Code CLI and the Kilo Code VS Code extension** — one pack, both surfaces. Instead of building your AI coding workflow from scratch, you get a curated, opinionated setup that works immediately:
 
 - **10 specialized agents** — 4 primary (implementation, debugging, planning, Q&A) + 6 subagents (implementation executor, researcher, tester, reviewer, docs writer, codebase recon) with a delegation hierarchy already designed
 - **24 skills** — battle-tested playbooks (TDD, systematic debugging, code review, writing-plans, web-perf) curated from popular community packs and trimmed to what earns its place in every session
@@ -34,7 +34,6 @@ The idea is simple: **prompts in files, models in config, behavior in rules.** E
 | Agents | 10 | 4 primary (`code`, `debug`, `ask`, `plan`) + 6 subagents (`general`, `researcher`, `tester`, `reviewer`, `docs`, `explore`) — built-in Kilo agents with enriched prompts |
 | Skills | 24 | Curated playbooks across 8 categories: core, planning, over-engineering audits, communication, workflow/git, UI, platform, meta |
 | Rules | 7 | Always-on session guardrails, loaded via the `instructions` config (protocol rules first) |
-| Plugins | 1 | `graphify.js` — mechanically enforces the memory/graphify first-action protocol every session |
 | Commands | 1 | `/update-pack` — pull + sync pack files + register rules |
 
 ---
@@ -313,7 +312,7 @@ Full 24-skill table with descriptions: [docs/SKILLS.md](docs/SKILLS.md)
 
 ## ⚙️ Rules
 
-Seven global rules. **Rules are NOT auto-loaded from the `rules/` folder** — each file must be registered in your `kilo.jsonc` under `instructions`, or added via Settings → Agent Behaviour → Rules → Add Additional Instruction Files → select the file → Add. List `agentmemory` and `graphify` first — they are first-action protocols, and earlier entries in the context get better model compliance. The optional `plugins/graphify.js` plugin (register it in the **global** config via the `plugin` key) re-injects both protocols into every session's system prompt so compliance does not depend on prompt position alone.
+Seven global rules. **Rules are NOT auto-loaded from the `rules/` folder** — each file must be registered in your `kilo.jsonc` under `instructions`, or added via Settings → Agent Behaviour → Rules → Add Additional Instruction Files → select the file → Add. List `agentmemory` and `graphify` first — they are first-action protocols, and earlier entries in the context get better model compliance.
 
 | Rule | Applies | Mandate |
 |------|---------|---------|
