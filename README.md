@@ -12,7 +12,7 @@
 
 ## What is oh-my-kilo?
 
-A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) — plain files you copy into `~/.config/kilo`. No plugin runtime, no build step. Instead of building your AI coding workflow from scratch, you get a curated, opinionated setup that works immediately:
+A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) — plain files you copy into `~/.config/kilo`. No plugin runtime, no build step. Works identically on **both the Kilo Code CLI and the Kilo Code VS Code extension** — one pack, both surfaces. Instead of building your AI coding workflow from scratch, you get a curated, opinionated setup that works immediately:
 
 - **10 specialized agents** — 4 primary (implementation, debugging, planning, Q&A) + 6 subagents (implementation executor, researcher, tester, reviewer, docs writer, codebase recon) with a delegation hierarchy already designed
 - **24 skills** — battle-tested playbooks (TDD, systematic debugging, code review, writing-plans, web-perf) curated from popular community packs and trimmed to what earns its place in every session
@@ -337,6 +337,8 @@ Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 ---
 
 ## 🖥 Compatibility
+
+oh-my-kilo works on **both Kilo Code surfaces** — the CLI and the VS Code extension read the same `~/.config/kilo` config, so agents, skills, and rules behave the same in either one.
 
 | Platform / Tool | Status |
 |-----------------|--------|
