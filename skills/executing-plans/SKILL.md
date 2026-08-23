@@ -11,12 +11,12 @@ Load plan, review critically, execute all tasks, report when complete.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
-**Note:** Tell your human partner that this works much better with access to subagents. If subagents are available, use superpowers:subagent-driven-development instead of this skill.
+**Note:** Tell your human partner that this works much better with access to subagents. If subagents are available, delegate independent tasks in parallel per the delegation rules instead of executing inline.
 
 ## The Process
 
 ### Step 1: Load and Review Plan
-1. Ensure an isolated workspace: use superpowers:using-git-worktrees to create one or verify the existing one
+1. Ensure an isolated workspace: create a git worktree if needed, or verify the existing one
 2. Read plan file
 3. Review critically - identify any questions or concerns about the plan
 4. If concerns: Raise them with your human partner before starting
@@ -33,9 +33,9 @@ For each task:
 ### Step 3: Complete Development
 
 After all tasks complete and verified:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
+- Verify the full test suite passes on the branch
+- Present integration options to your human partner: merge to main, open a PR, or keep the branch for later
+- Execute their choice
 
 ## When to Stop and Ask for Help
 
