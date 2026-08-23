@@ -2,11 +2,11 @@
 
 *A curated Kilo Code configuration with specialized agents, skills, rules, and workflows — built to make Kilo smarter and more autonomous out of the box.*
 
-**Kilo Code Agent Suite** · 12 agents · 49 skills · 7 rules
+**Kilo Code Agent Suite** · 10 agents · 24 skills · 7 rules
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Agents](https://img.shields.io/badge/agents-12-orange)](#meet-the-agents)
-[![Skills](https://img.shields.io/badge/skills-49-green)](#skills)
+[![Agents](https://img.shields.io/badge/agents-10-orange)](#meet-the-agents)
+[![Skills](https://img.shields.io/badge/skills-24-green)](#skills)
 
 ---
 
@@ -14,8 +14,8 @@
 
 A **configuration pack** for [Kilo Code](https://github.com/Kilo-Org/kilocode) — plain files you copy into `~/.config/kilo`. No plugin runtime, no build step. Instead of building your AI coding workflow from scratch, you get a curated, opinionated setup that works immediately:
 
-- **12 specialized agents** — implementation, debugging, planning, auditing, UI, security, docs, and more, with a delegation hierarchy already designed
-- **49 skills** — battle-tested playbooks (TDD, systematic debugging, code review, writing-plans, web-perf) curated from popular community packs
+- **10 specialized agents** — 4 primary (implementation, debugging, planning, Q&A) + 6 subagents (implementation executor, researcher, tester, reviewer, docs writer, codebase recon) with a delegation hierarchy already designed
+- **24 skills** — battle-tested playbooks (TDD, systematic debugging, code review, writing-plans, web-perf) curated from popular community packs and trimmed to what earns its place in every session
 - **7 global rules** — always-on guardrails: English-only files, mandatory memory search, mandatory skill check, knowledge-graph-first navigation, parallel delegation, Cloudflare Workers doc-first, caveman/ponytail style
 - **1 command** — `/update-pack` to pull latest changes and sync the pack into your config
 
@@ -31,8 +31,8 @@ The idea is simple: **prompts in files, models in config, behavior in rules.** E
 
 | Component | Count | What it does |
 |-----------|-------|--------------|
-| Agents | 12 | 6 primary (`code`, `debug`, `ask`, `planner`, `auditor`, `designer`) + 6 subagents (`general`, `explore`, `tester`, `security`, `librarian`, `documentarian`) |
-| Skills | 49 | Curated playbooks across 9 categories: writing, code-review, planning, agents, config, UI, devops, debugging, testing |
+| Agents | 10 | 4 primary (`code`, `debug`, `ask`, `plan`) + 6 subagents (`general`, `researcher`, `tester`, `reviewer`, `docs`, `explore`) — built-in Kilo agents with enriched prompts |
+| Skills | 24 | Curated playbooks across 8 categories: core, planning, over-engineering audits, communication, workflow/git, UI, platform, meta |
 | Rules | 7 | Always-on session guardrails, loaded via the `instructions` config |
 | Commands | 1 | `/update-pack` — pull + sync pack files + register rules |
 
@@ -136,7 +136,7 @@ In a Kilo session, ask:
 list your agents and confirm which skills are loaded
 ```
 
-You should see all 12 agents and the 49 skills. If something is missing, check the skills path and rules from [docs/INSTALL.md](docs/INSTALL.md#troubleshooting).
+You should see all 10 agents and the 24 skills. If something is missing, check the skills path and rules from [docs/INSTALL.md](docs/INSTALL.md#troubleshooting).
 
 ---
 
@@ -209,7 +209,7 @@ What does this pack actually *do*? Here are five real prompts — and what happe
 **Without oh-my-kilo:** One agent reads through files manually, greps around, and gives a surface-level opinion — architecture, performance, and security all mushed into one pass with no structure.
 
 **With oh-my-kilo:**
-- **Agent:** `auditor` → delegates `security`, `explore`, `librarian` in parallel
+- **Agent:** `code` (audit mode) → delegates `reviewer`, `explore` in parallel
 - **Skills:** `clean-code`, `code-review`, `ponytail-audit`
 - **Rules:** graphify-first navigation, parallel delegation
 - **Result:** architecture + performance + code-quality report, backed by subagent findings
@@ -222,7 +222,7 @@ What does this pack actually *do*? Here are five real prompts — and what happe
 
 **With oh-my-kilo:**
 - **Agent:** `debug`
-- **Skills:** `systematic-debugging`, `diagnosing-bugs`
+- **Skills:** `systematic-debugging`
 - **Rules:** memory check first (has this bug been seen before?), skill check
 - **Result:** root-cause analysis with evidence, not guesswork; fix only after diagnosis
 
@@ -233,7 +233,7 @@ What does this pack actually *do*? Here are five real prompts — and what happe
 **Without oh-my-kilo:** The agent starts coding immediately — no plan, no tests, no review. The feature works (maybe), but the architecture drifts and nothing is verified.
 
 **With oh-my-kilo:**
-- **Agent:** `code` → spawns `planner` for the design, `tester` for tests, `security` when auth/data is involved
+- **Agent:** `code` → spawns `plan` for the design, `tester` for tests, `reviewer` for security analysis when auth/data is involved
 - **Skills:** `writing-plans`, `test-driven-development`, `verification-before-completion`
 - **Rules:** plan-file protocol for complex tasks, TDD before implementation, verify before claiming done
 - **Result:** structured `plan/Implementation-*.md`, tests written first, evidence-backed completion
@@ -245,8 +245,8 @@ What does this pack actually *do*? Here are five real prompts — and what happe
 **Without oh-my-kilo:** A loose opinion piece — "maybe extract this, perhaps that service is too big" — with no verification against the actual code.
 
 **With oh-my-kilo:**
-- **Agent:** `planner` → delegates `explore`, `librarian`
-- **Skills:** `codebase-design`, `domain-modeling`, `improve-codebase-architecture`
+- **Agent:** `plan` → delegates `explore`, `researcher`
+- **Skills:** `codebase-design`, `writing-plans`
 - **Rules:** plan-file protocol, user confirmation loop before implementation
 - **Result:** structured review with evidence from the codebase, explicit trade-offs, and a plan you confirm before anything is implemented
 
@@ -267,7 +267,7 @@ What does this pack actually *do*? Here are five real prompts — and what happe
 
 ## 🏛 Meet the Agents
 
-Twelve curated agents. Each agent is a markdown file in `agents/` — edit the prompt by editing the file. Model, variant, and permissions are configured via Kilo Settings.
+Ten curated agents built on Kilo's built-in roster — each one is a markdown file in `agents/` that enriches a native agent with specialist protocols. Edit the prompt by editing the file. Model, variant, and permissions are configured via Kilo Settings.
 
 > 📖 **Full agent guide with model recommendations:** [docs/AGENTS.md](docs/AGENTS.md)
 
@@ -275,41 +275,38 @@ Twelve curated agents. Each agent is a markdown file in `agents/` — edit the p
 
 | # | Agent | Role | Prompt |
 |---|-------|------|--------|
-| 01 | **`code`** — The Architect | Implementation, debugging, general dev; delegates to specialists | [`agents/code.md`](agents/code.md) |
+| 01 | **`code`** — The Architect | Implementation, debugging, general dev; audit lenses (architecture/performance/quality) + UI/accessibility protocols; delegates to specialists | [`agents/code.md`](agents/code.md) |
 | 02 | **`debug`** — The Root-Cause Hunter | Reproduce → isolate → bisect; no guessing | [`agents/debug.md`](agents/debug.md) |
 | 03 | **`ask`** — The Sage | Read-only Q&A; never touches a file | [`agents/ask.md`](agents/ask.md) |
-| 04 | **`planner`** — The Oracle | Architecture decisions, trade-offs, implementation plans | [`agents/planner.md`](agents/planner.md) |
-| 05 | **`auditor`** — The Inspector | Repo audit — architecture + performance + code quality, parallel delegation | [`agents/auditor.md`](agents/auditor.md) |
-| 06 | **`designer`** — The Artisan | UI/UX implementation, frontend polish, WCAG 2.2 AA | [`agents/designer.md`](agents/designer.md) |
+| 04 | **`plan`** — The Oracle | Architecture decisions, trade-offs, implementation plans (writes to `.kilo/plans/` only) | [`agents/plan.md`](agents/plan.md) |
 
 ### Subagents 🔶
 
 | # | Agent | Role | Prompt |
 |---|-------|------|--------|
-| 07 | **`general`** — The All-Rounder | Multi-step research, decomposition, per-step verification | [`agents/general.md`](agents/general.md) |
-| 08 | **`explore`** — The Pathfinder | Fast codebase scouting — broad, shallow, quick | [`agents/explore.md`](agents/explore.md) |
-| 09 | **`tester`** — The Prover | Comprehensive test suites — unit tests, edge cases, error paths | [`agents/tester.md`](agents/tester.md) |
-| 10 | **`security`** — The Guardian | OWASP Top 10, auth flaws, injection, secrets, deps | [`agents/security.md`](agents/security.md) |
-| 11 | **`librarian`** — The Archivist | Official docs, specs, reference implementations — cited | [`agents/librarian.md`](agents/librarian.md) |
-| 12 | **`documentarian`** — The Scribe | README, API docs, runbooks — verified against code | [`agents/documentarian.md`](agents/documentarian.md) |
+| 05 | **`general`** — The Executor | UI/frontend builds, refactors, multi-step execution of well-defined tasks | [`agents/general.md`](agents/general.md) |
+| 06 | **`researcher`** — The Librarian | External research with cited findings (perplexity MCP + Context7); keeps noisy fetch output out of main context | [`agents/researcher.md`](agents/researcher.md) |
+| 07 | **`tester`** — The Gatekeeper | Writes and runs test suites, iterates failures in isolation, reports compact results | [`agents/tester.md`](agents/tester.md) |
+| 08 | **`reviewer`** — The Inspector | Diff review vs repo standards, spec, and security baseline — read-only, findings only | [`agents/reviewer.md`](agents/reviewer.md) |
+| 09 | **`docs`** — The Scribe | Creates and improves documentation in `docs/`, verified against code | [`agents/docs.md`](agents/docs.md) |
+| 10 | **`explore`** — The Pathfinder | Fast codebase scouting — broad, shallow, quick | [`agents/explore.md`](agents/explore.md) |
 
 ## 🧩 Skills
 
-Skills are prompt-based playbooks injected into an agent's context when a task matches. They run no process — just focused instructions. The 49 skills are **curated from popular community skill packs** (obra/superpowers, mattpocock/skills, vercel-labs/skills, and others), selected and grouped by category — you get the best-known workflows (TDD, systematic debugging, code review, writing-plans, UI design, web-perf) without installing each pack yourself. Loaded automatically at session start via the `skills.paths` config, and the `skill-reminder` rule makes every task check for a matching skill before starting.
+Skills are prompt-based playbooks injected into an agent's context when a task matches. They run no process — just focused instructions. The 24 skills are **curated from popular community skill packs** (obra/superpowers, mattpocock/skills, vercel-labs/skills, and others), selected and grouped by category — you get the best-known workflows (TDD, systematic debugging, code review, writing-plans, UI design, web-perf) without installing each pack yourself. Loaded automatically at session start via the `skills.paths` config, and the `skill-reminder` rule makes every task check for a matching skill before starting.
 
 | Category | Skills | Purpose |
 |----------|--------|---------|
-| writing | `documentation`, `teach`, `writing-beats`, `writing-fragments`, `writing-for-agents`, `writing-skills` | Technical docs, teaching, structured writing workflows |
-| code-review | `caveman-review`, `clean-code`, `code-review`, `migrate-to-shoehorn`, `ponytail-audit`, `ponytail-review`, `receiving-code-review`, `requesting-code-review` | Clean code, review culture, over-engineering audits |
-| planning | `codebase-design`, `domain-modeling`, `executing-plans`, `grilling`, `improve-codebase-architecture`, `to-questionnaire`, `to-spec`, `to-tickets`, `triage`, `wayfinder`, `writing-plans` | Design, specs, tickets, plan execution |
-| agents | `agent-md-refactor`, `cavecrew`, `handoff`, `subagent-driven-development` | Agent workflow, delegation, handoffs |
-| config | `caveman`, `caveman-compress`, `graphify`, `ponytail` | Communication modes, knowledge graphs, lazy coding |
-| UI | `artifacts-builder`, `prototype`, `pwa-development`, `ui-design`, `vercel-react`, `web-perf` | Frontend, PWA, performance |
-| devops | `cloudflare`, `finishing-a-development-branch`, `git-commit`, `resolving-merge-conflicts`, `using-git-worktrees`, `verification-before-completion`, `wizard` | Git, deployment, verification |
-| debugging | `diagnosing-bugs`, `systematic-debugging` | Diagnosis loops before fixes |
-| testing | `test-driven-development` | Tests before implementation |
+| core | `clean-code`, `code-review`, `documentation`, `git-commit`, `systematic-debugging`, `test-driven-development`, `verification-before-completion` | Daily development: quality, review, docs, commits, debugging, TDD, verification |
+| planning | `codebase-design`, `executing-plans`, `grilling`, `writing-plans` | Design, plan creation and execution, stress-testing decisions |
+| over-engineering audits | `ponytail-audit`, `ponytail-review` | YAGNI audits at repo and diff level |
+| communication & config | `caveman`, `graphify`, `ponytail` | Terse mode, knowledge graphs, minimal coding |
+| workflow & git | `handoff`, `resolving-merge-conflicts` | Session handoffs, merge/rebase conflicts |
+| UI & performance | `pwa-development`, `ui-design`, `vercel-react`, `web-perf` | Frontend, PWA, performance |
+| platform | `cloudflare` | Unified Cloudflare platform skill |
+| meta | `writing-skills` | Creating and verifying skills themselves |
 
-Full 49-skill table with descriptions: [docs/SKILLS.md](docs/SKILLS.md)
+Full 24-skill table with descriptions: [docs/SKILLS.md](docs/SKILLS.md)
 
 > 💡 **Frontend tip:** For UI/frontend work, prefer starting from an existing template or component library (Tailwind UI, shadcn/ui, your project's boilerplate) and adapting it to your taste — rather than building from scratch. Templates ship with consistent design tokens, responsive behavior, and accessibility defaults already handled; build-from-scratch only when no template fits.
 
@@ -369,7 +366,7 @@ Reference: [docs/COMMANDS.md](docs/COMMANDS.md)
 |-----|----------------|
 | [docs/INSTALL.md](docs/INSTALL.md) | Step-by-step install, uninstall, troubleshooting |
 | [docs/STRUCTURE.md](docs/STRUCTURE.md) | What's in the repo — every folder and file explained |
-| [docs/AGENTS.md](docs/AGENTS.md) | The 12 agents — config model, when to use each, model recommendations |
+| [docs/AGENTS.md](docs/AGENTS.md) | The 10 agents — config model, when to use each, model recommendations |
 | [docs/SKILLS.md](docs/SKILLS.md) | How skills work, how to enable them, full skill table |
 | [docs/RULES.md](docs/RULES.md) | The 6 global rules in detail |
 | [docs/COMMANDS.md](docs/COMMANDS.md) | Commands usage and examples |

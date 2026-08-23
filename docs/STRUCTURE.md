@@ -10,22 +10,15 @@ oh-my-kilo/
 ├── LICENSE            # MIT license
 ├── .gitignore         # Ignores real config, machine state, working dirs
 │
-├── agents/            # 12 agent system prompts (markdown + frontmatter)
-│   ├── code.md        #   primary agent: implementation, orchestration
+├── agents/            # 6 agent system prompts (markdown + frontmatter)
+│   ├── code.md        #   primary agent: implementation, audit lenses, UI protocols
 │   ├── debug.md       #   systematic debugging, root cause analysis
 │   ├── ask.md         #   read-only Q&A
-│   ├── planner.md     #   architecture, implementation plans
-│   ├── auditor.md     #   repo-wide audits, parallel delegation
-│   ├── general.md     #   multi-step research/execution
-│   ├── explore.md     #   codebase reconnaissance
-│   ├── tester.md      #   test suites
-│   ├── security.md    #   security audits (OWASP)
-│   ├── librarian.md   #   external knowledge retrieval
-│   ├── documentarian.md # documentation writing
-│   └── designer.md    #   UI/UX implementation
+│   ├── plan.md        #   architecture, implementation plans (.kilo/plans/ only)
+│   ├── general.md     #   research/tests/security/docs subagent
+│   └── explore.md     #   codebase reconnaissance
 │
 ├── command/           # Slash commands
-│   ├── graphify.md    #   /graphify — build/query knowledge graphs
 │   └── update-pack.md #   /update-pack — pull + sync pack into config + register rules
 │
 ├── rules/             # Global rules loaded at session start
@@ -34,7 +27,8 @@ oh-my-kilo/
 │   ├── skill-reminder.md      # mandatory skill check before tasks
 │   ├── graphify.md            # knowledge-graph-first navigation
 │   ├── delegation.md          # subagent delegation policy
-│   └── workers.md             # Cloudflare Workers doc-first rule
+│   ├── workers.md             # Cloudflare Workers doc-first rule
+│   └── communication-style.md # caveman replies + ponytail code style
 │
 ├── docs/              # Pack documentation (safe to keep after install)
 │   ├── INSTALL.md     #   install/uninstall/troubleshooting
@@ -45,10 +39,9 @@ oh-my-kilo/
 │   ├── COMMANDS.md    #   command reference
 │   └── CONFIGURATION.md # kilo.jsonc block reference
 │
-└── skills/            # 49 prompt-based skills (community packs)
-    ├── agent-md-refactor/    # ...
+└── skills/            # 24 prompt-based skills (community packs)
     ├── caveman/              # ...
-    └── ...                   # 47 more, each a folder with SKILL.md
+    └── ...                   # 23 more, each a folder with SKILL.md
 ```
 
 ## What gets copied to `~/.config/kilo`
@@ -56,7 +49,7 @@ oh-my-kilo/
 | Path | Copied? | Notes |
 |------|---------|-------|
 | `AGENTS.md` | yes | Global instructions, loaded automatically |
-| `agents/` | yes | System prompts for the 12 agents |
+| `agents/` | yes | System prompts for the 10 agents |
 | `command/` | yes | Slash commands |
 | `rules/` | yes | Loaded via `instructions` config key |
 | `skills/` | yes | Must be registered in `skills.paths` |
@@ -65,7 +58,7 @@ oh-my-kilo/
 
 ## Design decisions
 
-- **System prompts are files, not config.** The `agents/*.md` files are the single source of truth for agent prompts. Model/variant/temperature belong in `kilo.jsonc` via Kilo Settings — never in frontmatter. Restrictive `permission:` blocks do ship in frontmatter on the restricted agents (`security`, `tester`, `documentarian`, `planner`) and are honored at runtime.
+- **System prompts are files, not config.** The `agents/*.md` files are the single source of truth for agent prompts. Model/variant/temperature belong in `kilo.jsonc` via Kilo Settings — never in frontmatter. Restrictive `permission:` blocks do ship in frontmatter on the restricted agents (`plan`, and read-only scopes on `ask`) and are honored at runtime.
 - **Rules are always-on guardrails.** Four of six rules use `alwaysApply: true` so language, memory, skills, and graphify behavior never drift between sessions.
 - **No config template in the pack.** Real `kilo.jsonc` is machine-specific and gitignored. The pack documents reference blocks in `docs/CONFIGURATION.md` instead.
 - **Skills are layered, not locked.** Skills are copied as-is from community packs; you can edit, add, or delete any skill folder.

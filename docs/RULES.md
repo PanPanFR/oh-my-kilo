@@ -81,7 +81,7 @@ Seven global rules. **Not auto-loaded from the `rules/` folder** — each must b
 | **File** | `rules/delegation.md` |
 | **Always applies** | ✅ any task that fits a subagent |
 | **Problem** | One agent doing everything is slow, context-bloated, and bad at specialist work. Security reviews by a general-purpose agent miss OWASP patterns; test suites miss edge cases. |
-| **What it changes** | Mandates delegating to specialized subagents (`security`, `tester`, `librarian`, `documentarian`, `explore`) and running independent subtasks **in parallel** in a single message. |
+| **What it changes** | Mandates delegating to specialized subagents (`general`, `explore`) and running independent subtasks **in parallel** in a single message. |
 | **Trade-off** | Subagent invocation adds a few seconds of overhead per delegation. But parallel delegation is faster overall than sequential single-agent work, and specialist quality is higher. |
 
 ---

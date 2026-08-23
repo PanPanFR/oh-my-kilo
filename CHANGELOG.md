@@ -2,6 +2,35 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.4.0] - 2026-08-23
+
+### Changed
+- **Skills curated 49 -> 24** - removed redundant/niche skills (duplicate debugging loops, tracker-dependent workflows, one-off utilities); `caveman-compress` + `caveman-review` merged into `caveman` as compact sections.
+- **Agent roster expanded 6 -> 10** - `general` slimmed to a multi-step implementation executor; four specialist subagents added:
+  - `researcher` - external docs/library research with cited findings (perplexity MCP + Context7)
+  - `tester` - writes/runs test suites, iterates failures in isolation
+  - `reviewer` - diff review vs repo standards, spec, and security baseline (read-only)
+  - `docs` - creates and improves documentation in `docs/`
+- **Delegation rewired everywhere** - triage/handoff references in `code`, `debug`, `ask`, `plan` agents, `rules/delegation.md`, root `AGENTS.md` parallel patterns now route to specialists.
+- **Docs resynced** - README counts/tables/workflows, `docs/SKILLS.md` (full rewrite), `docs/AGENTS.md` (10 agents, protocol ownership moved to specialists), `docs/STRUCTURE.md`.
+
+### Fixed
+- **Dangling sub-skill references removed** - `executing-plans` and `writing-plans` referenced deleted superpowers sub-skills (`using-git-worktrees`, `finishing-a-development-branch`, `subagent-driven-development`); replaced with inline instructions.
+- **`skill-reminder` rule referenced nonexistent `kilo-config` skill** - row removed.
+## [0.3.0] — 2026-08-23
+
+### Changed
+- **Agent roster consolidated 12 → 6** — built on Kilo's built-in agent names only: `code`, `debug`, `ask`, `plan` (primary) + `general`, `explore` (subagents). Specialist disciplines merged into built-in prompts instead of separate agents:
+  - `tester` + `security` + `librarian` + `documentarian` protocols → folded into `general`
+  - `auditor` (three-lens review) + `designer` (UI/UX, WCAG 2.2 AA) protocols → folded into `code`
+- **`planner` renamed to `plan`** — matches Kilo Code's built-in plan agent.
+- **Plan files moved to `.kilo/plans/`** — matches Kilo's native plan-agent write scope; `plan.md` ships restrictive frontmatter (edit: `.kilo/plans/*` allow, rest ask; read-only bash allowlist; MCP allowed), so plans stay editable without permission prompts.
+- **`rules/delegation.md` rewritten** for the 6-agent roster (`general`, `explore` only).
+- **Docs resynced** — README counts/tables/examples, `docs/AGENTS.md` (full rewrite: 6 agents, updated protocol ownership), `docs/STRUCTURE.md`, `docs/RULES.md`, `docs/CONFIGURATION.md`, and root `AGENTS.md` parallel-delegation patterns now reference only existing agents.
+
+### Removed
+- **6 custom agents deleted**: `agents/tester.md`, `agents/security.md`, `agents/auditor.md`, `agents/librarian.md`, `agents/documentarian.md`, `agents/designer.md`.
+
 ## [0.2.8] — 2026-08-11
 
 ### Changed

@@ -147,7 +147,7 @@ The `indexing` block (embedding provider + API key) is excluded from the pack. T
 
 The pack **omits the `agent` block entirely**. System prompts live in `agents/*.md` files.
 
-**Model, variant, and temperature per agent** are set by the user via **Kilo Settings** (extension UI or `kilo settings`), which writes the `agent` block in your `kilo.jsonc`. Do NOT put these in the agent frontmatter. The one exception: restrictive `permission:` blocks in the frontmatter ARE honored at runtime and ship on the restricted agents (`security`, `tester`, `documentarian`, `planner`).
+**Model, variant, and temperature per agent** are set by the user via **Kilo Settings** (extension UI or `kilo settings`), which writes the `agent` block in your `kilo.jsonc`. Do NOT put these in the agent frontmatter. The one exception: restrictive `permission:` blocks in the frontmatter ARE honored at runtime and ship on the restricted agents (`plan`: plan-file writes in `.kilo/plans/` only + read-only bash; `ask`: read-only).
 
 To override per-agent models after install, edit your `kilo.jsonc` (replace `<provider>` with the provider you configured):
 
