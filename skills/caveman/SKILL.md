@@ -36,3 +36,13 @@ Caveman: "Bug in auth middleware. Token expiry check use `<` not `<=`. Fix:"
 ## Not lazy about
 
 Security warnings, irreversible actions, multi-step sequences where fragment ambiguity risks misread — write normal there. Resume caveman after.
+
+## Compress file mode
+
+`/caveman-compress <filepath>`: rewrite an existing markdown file (memory, notes, docs) in caveman style to cut input tokens. Keep all technical substance, code blocks, URLs, structure verbatim. Save human-readable backup as `<filename>.original.md`, overwrite original.
+
+## Terse review comments
+
+When reviewing PRs/diffs in caveman mode, one line per finding: `L<line>: <problem>. <fix>.`
+
+Optional severity prefix: `bug:` broken behavior / `risk:` works but fragile / `nit:` style, ignorable / `q:` question not suggestion.
