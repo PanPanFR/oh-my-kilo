@@ -3,7 +3,7 @@
 # Usage: ./find-polluter.sh <file_or_dir_to_check> <test_pattern>
 # Example: ./find-polluter.sh '.git' 'src/**/*.test.ts'
 
-set -euo pipefail
+set -e
 
 if [ $# -ne 2 ]; then
   echo "Usage: $0 <file_to_check> <test_pattern>"
@@ -35,7 +35,7 @@ echo "Found $TOTAL test files"
 echo ""
 
 COUNT=0
-while IFS= read -r TEST_FILE; do
+for TEST_FILE in $TEST_FILES; do
   COUNT=$((COUNT + 1))
 
   # Skip if pollution already exists
