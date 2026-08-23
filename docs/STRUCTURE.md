@@ -25,6 +25,9 @@ oh-my-kilo/
 ├── command/           # Slash commands
 │   └── update-pack.md #   /update-pack — pull + sync pack into config + register rules
 │
+├── plugins/           # Enforcement plugins (Kilo plugin API)
+│   └── graphify.js    #   injects the mandatory first-action protocol block into every session's system prompt + first-bash reminder
+│
 ├── rules/             # Global rules loaded at session start
 │   ├── language.md            # English-only file content
 │   ├── agentmemory.md         # mandatory memory search/save
@@ -55,7 +58,8 @@ oh-my-kilo/
 | `AGENTS.md` | yes | Global instructions, loaded automatically |
 | `agents/` | yes | System prompts for the 10 agents |
 | `command/` | yes | Slash commands |
-| `rules/` | yes | Loaded via `instructions` config key |
+| `plugins/` | yes | Enforcement plugins — must also be registered via the `plugin` key in the **global** `kilo.jsonc` |
+| `rules/` | yes | Loaded via `instructions` config key (protocol rules first — order matters) |
 | `skills/` | yes | Must be registered in `skills.paths` |
 | `docs/` | yes | Reference material; optional to copy |
 | `README.md`, `SECURITY.md`, `LICENSE`, `.gitignore` | no | Repo-only files |
@@ -65,4 +69,5 @@ oh-my-kilo/
 - **System prompts are files, not config.** The `agents/*.md` files are the single source of truth for agent prompts. Model/variant/temperature belong in `kilo.jsonc` via Kilo Settings — never in frontmatter. Restrictive `permission:` blocks do ship in frontmatter on the restricted agents (`plan`, and read-only scopes on `ask`) and are honored at runtime.
 - **Rules are always-on guardrails.** Five of seven rules use `alwaysApply: true` so language, memory, skills, graphify, and style behavior never drift between sessions (`delegation` has no frontmatter but is registered in `instructions`; `workers` is glob-scoped to Cloudflare files).
 - **No config template in the pack.** Real `kilo.jsonc` is machine-specific and gitignored. The pack documents reference blocks in `docs/CONFIGURATION.md` instead.
+- **Protocols are enforced, not just requested.** Rules are soft instructions — weaker models skip them. `plugins/graphify.js` re-injects the agentmemory/graphify first-action protocol into every session's system prompt via the plugin API (`experimental.chat.system.transform`) and nudges on the first bash call. Registration belongs in the **global** config; project-scope registrations only load in that one directory.
 - **Skills are layered, not locked.** Skills are copied as-is from community packs; you can edit, add, or delete any skill folder.

@@ -2,6 +2,21 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.4.2] - 2026-08-23
+
+### Added
+- **`plugins/graphify.js` — protocol enforcement plugin.** Rules alone proved too easy for models to skip (both first-action protocols went unused in real tasks). The plugin enforces them mechanically:
+  - Injects a mandatory protocol block (memory recall -> graphify query/init -> memory save) into every session's system prompt via `experimental.chat.system.transform` — highest-priority context, independent of rules-file position.
+  - Prefixes the session's first bash call with a one-line reminder that fires even when the project has no graph yet (previously the reminder was silent unless `graphify-out/graph.json` already existed, and only on bash).
+  - Registered via the `plugin` key in the **global** `kilo.jsonc`; see INSTALL.md Step 5.
+
+### Changed
+- **Recommended `instructions` order: protocol rules first** — `agentmemory.md` and `graphify.md` now listed before the other five rules in all docs (README, RULES.md, CONFIGURATION.md, INSTALL.md). Global `instructions` are the lowest injection priority; earliest entries land earliest in context and get measurably better compliance from weaker models.
+- **`/update-pack` syncs `plugins/`** and registers new plugins in the global config.
+
+### Fixed
+- **Plugin registration scope** — the graphify plugin was previously registered in a project-scope `.kilo/kilo.json`, which only loads when Kilo runs from that exact directory. In every other project the plugin was silently absent. Docs now state the registration must live in the global config, and INSTALL.md includes a troubleshooting entry for it.
+
 ## [0.4.1] - 2026-08-23
 
 ### Changed

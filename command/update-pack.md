@@ -24,7 +24,7 @@ Run `git pull --ff-only` in the located repo. Handle three outcomes:
 
 ## Step 3 — Sync folders
 
-Copy from the repo into `~/.config/kilo`: `agents/`, `command/`, `rules/`, `skills/` (recursive, overwrite). Copy `AGENTS.md` to the config root.
+Copy from the repo into `~/.config/kilo`: `agents/`, `command/`, `plugins/`, `rules/`, `skills/` (recursive, overwrite). Copy `AGENTS.md` to the config root. If a new plugin file appears and the config's **global** `kilo.jsonc` has no `plugin` entry for it, add the `file:///` registration there (never in project-scope configs).
 
 ## Step 4 — Register rules
 
