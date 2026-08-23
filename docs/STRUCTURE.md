@@ -4,19 +4,23 @@ This document explains every folder and file in the oh-my-kilo repository — wh
 
 ```
 oh-my-kilo/
-├── AGENTS.md          # Global Kilo instructions (loaded every session)
+├── AGENTS.md          # Global Kilo instructions - thin index pointing to rules/*.md (single source of truth)
 ├── README.md          # This project's front page
 ├── SECURITY.md        # Security policy & credential-safety model
 ├── LICENSE            # MIT license
 ├── .gitignore         # Ignores real config, machine state, working dirs
 │
-├── agents/            # 6 agent system prompts (markdown + frontmatter)
-│   ├── code.md        #   primary agent: implementation, audit lenses, UI protocols
-│   ├── debug.md       #   systematic debugging, root cause analysis
-│   ├── ask.md         #   read-only Q&A
-│   ├── plan.md        #   architecture, implementation plans (.kilo/plans/ only)
-│   ├── general.md     #   research/tests/security/docs subagent
-│   └── explore.md     #   codebase reconnaissance
+├── agents/            # 10 agent system prompts (markdown + frontmatter)
+│   ├── code.md        #   primary: implementation, triage, delegation
+│   ├── debug.md       #   primary: systematic debugging, root cause analysis
+│   ├── ask.md         #   primary: read-only Q&A
+│   ├── plan.md        #   primary: architecture, implementation plans (.kilo/plans/ only)
+│   ├── general.md     #   subagent: UI/frontend builds, refactors, multi-step execution
+│   ├── researcher.md  #   subagent: external research with cited findings
+│   ├── tester.md      #   subagent: test suites in isolation
+│   ├── reviewer.md    #   subagent: code + security diff review (read-only)
+│   ├── docs.md        #   subagent: technical writing in docs/
+│   └── explore.md     #   subagent: fast codebase reconnaissance
 │
 ├── command/           # Slash commands
 │   └── update-pack.md #   /update-pack — pull + sync pack into config + register rules
@@ -59,6 +63,6 @@ oh-my-kilo/
 ## Design decisions
 
 - **System prompts are files, not config.** The `agents/*.md` files are the single source of truth for agent prompts. Model/variant/temperature belong in `kilo.jsonc` via Kilo Settings — never in frontmatter. Restrictive `permission:` blocks do ship in frontmatter on the restricted agents (`plan`, and read-only scopes on `ask`) and are honored at runtime.
-- **Rules are always-on guardrails.** Four of six rules use `alwaysApply: true` so language, memory, skills, and graphify behavior never drift between sessions.
+- **Rules are always-on guardrails.** Five of seven rules use `alwaysApply: true` so language, memory, skills, graphify, and style behavior never drift between sessions (`delegation` has no frontmatter but is registered in `instructions`; `workers` is glob-scoped to Cloudflare files).
 - **No config template in the pack.** Real `kilo.jsonc` is machine-specific and gitignored. The pack documents reference blocks in `docs/CONFIGURATION.md` instead.
 - **Skills are layered, not locked.** Skills are copied as-is from community packs; you can edit, add, or delete any skill folder.

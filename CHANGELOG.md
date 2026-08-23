@@ -2,6 +2,19 @@
 
 All notable changes to oh-my-kilo are documented here.
 
+## [0.4.1] - 2026-08-23
+
+### Changed
+- **Prompt payload slimmed ~55%** - always-on instruction load cut from 327 to 147 lines (~1,500 tokens saved per request) by removing cross-file duplication:
+  - Root `AGENTS.md` reduced 129 -> 12 lines; now a thin index pointing to `rules/*.md` as the single source of truth (language, caveman/ponytail, agentmemory, skill-reminder, graphify, delegation sections were duplicated verbatim).
+  - `rules/agentmemory.md` 51 -> 13 lines, `rules/skill-reminder.md` 44 -> 28, `rules/graphify.md` 27 -> 18 - same behavior, no filler ("why this rule exists" essays, repeated NEVER-SKILL warnings, tool-name listings already in the system tool list).
+  - `agents/code.md` 44 -> 26 lines - dropped sections duplicating global rules (graphify, delegation, language); merged duplicate UI threshold wording.
+  - `agents/plan.md` 117 -> 64 lines - "cannot edit" prose folded into one line (already enforced by the `permission:` frontmatter); artifacts and plan-file protocols compressed, all requirements kept.
+- No behavioral changes intended: every rule, protocol, and requirement is preserved in exactly one place.
+
+### Fixed
+- **Docs resynced with actual prompts** - removed stale claims not present in any pack file: `code` "audit lenses" protocol (architecture/performance/quality tiers) and WCAG 2.2 AA/component-states bullets (`docs/AGENTS.md`, README agents table, `docs/STRUCTURE.md` tree); STRUCTURE tree now lists all 10 agent files with correct roles; rule count fixed ("four of six" -> "five of seven" alwaysApply).
+
 ## [0.4.0] - 2026-08-23
 
 ### Changed

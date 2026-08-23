@@ -14,11 +14,11 @@ oh-my-kilo ships 10 curated agents — 4 primary + 6 subagents — built on Kilo
 
 > *The one who translates intent into working software.*
 
-The default agent. It triages every task, writes the code, and coordinates specialists when the work crosses boundaries. Carries the audit lenses (architecture / performance / quality) and UI/accessibility protocols inline, so review and frontend discipline happen without leaving the session. If you only use one agent, this is it.
+The default agent. It triages every task, writes the code, and coordinates specialists when the work crosses boundaries — plan first for complex work, delegate docs/tests/review/research/recon to subagents. If you only use one agent, this is it.
 
 | | |
 |---|---|
-| **Role** | Default agent — implementation, debugging, general development; audit lenses; UI/accessibility protocols; delegates to subagents |
+| **Role** | Default agent — implementation, debugging, general development; task triage + delegation to specialists |
 | **Mode** | `all` 🔷 |
 | **Prompt** | `agents/code.md` |
 | **Model guidance** | Your strongest all-rounder. Plans, edits code, and coordinates specialists — needs reliable instruction-following and broad judgment over raw speed. |
@@ -230,24 +230,12 @@ When implementing, `code` follows these rules:
 - **Context management** — after 2+ failed corrections, start fresh instead of accumulating degraded context
 - **Self-review** — review your own diff before finishing; treat agent output as untrusted
 
-### Audit Lenses — `code`
-
-When reviewing code, `code` analyzes three lenses in a single pass:
-
-- **Architecture** — structure, modularity, layering, coupling, scalability
-- **Performance** — N+1 queries, bundle size, caching, algorithmic complexity
-- **Quality** — maintainability, naming, dead code, error handling, duplication
-
-Findings are severity-tiered (Blocker / Warning / Suggestion / Praise), cite file:line with a concrete fix, capped at 5-10 per review.
-
 ### UI/Frontend Rule — `code`
 
-- Design assets live in a dedicated `design/` folder at the project root
-- Before any UI work: check `design/` first; if it exists, read `design/design.md` and follow it
+- Design assets live in a dedicated `design/` folder at the project root (same convention as `docs/`)
+- Before any UI work: check `design/` first; if it exists, read `design/design.md` and supporting files and follow them
 - If `design/` doesn't exist: create it when starting UI work
-- If `design/design.md` is missing: ask the user to create one, or generate from project conventions
-- Accessibility floor: WCAG 2.2 AA — keyboard reachability, visible focus indicators, 24x24px targets, AA color contrast
-- Component states: default, hover, focus, active, disabled, loading, empty, error
+- If `design/design.md` is missing: ask the user to create one, or generate from project conventions — state which approach was taken
 
 ### Docs Folder Protocol — `docs`
 
@@ -303,8 +291,8 @@ When a task exceeds an agent's capability or another agent is more reliable, the
 | Fixing a bug you can't figure out | `debug` | Reproduce → isolate → bisect |
 | Understanding code without changing it | `ask` | Read-only, safe, cheap |
 | Before big architectural work | `plan` | Design → plan → confirm → hand off to code |
-| Repo/code audit | `code` | Three lenses in one pass, severity-tiered report |
-| UI/UX implementation | `code` | Frontend protocols + WCAG 2.2 AA baked into prompt |
+| Repo/code audit | `reviewer` + `explore` | Standards/spec/security review of the diff, recon in parallel |
+| UI/UX implementation | `code` → `general` | Frontend protocol baked into prompts, executor for builds |
 | Complex multi-step research | `researcher` | Cited findings without bloating main context |
 | Exploring an unknown codebase | `explore` | Fast, broad, shallow — the scout |
 | Writing comprehensive tests | `tester` | Test quality gates, isolated iteration loop |

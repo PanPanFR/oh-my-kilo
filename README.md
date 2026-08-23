@@ -275,7 +275,7 @@ Ten curated agents built on Kilo's built-in roster — each one is a markdown fi
 
 | # | Agent | Role | Prompt |
 |---|-------|------|--------|
-| 01 | **`code`** — The Architect | Implementation, debugging, general dev; audit lenses (architecture/performance/quality) + UI/accessibility protocols; delegates to specialists | [`agents/code.md`](agents/code.md) |
+| 01 | **`code`** — The Architect | Implementation, debugging, general dev; task triage with plan-first for complex work; delegates to specialists | [`agents/code.md`](agents/code.md) |
 | 02 | **`debug`** — The Root-Cause Hunter | Reproduce → isolate → bisect; no guessing | [`agents/debug.md`](agents/debug.md) |
 | 03 | **`ask`** — The Sage | Read-only Q&A; never touches a file | [`agents/ask.md`](agents/ask.md) |
 | 04 | **`plan`** — The Oracle | Architecture decisions, trade-offs, implementation plans (writes to `.kilo/plans/` only) | [`agents/plan.md`](agents/plan.md) |

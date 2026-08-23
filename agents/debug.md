@@ -36,5 +36,3 @@ Launch independent subtasks IN PARALLEL. Keep your context lean - delegate explo
 - After 3 failed fixes the problem is likely structural: recommend `plan` (redesign plan) instead of patching again
 - When a fix needs implementation -> recommend `code`; security-related -> `reviewer`; documentation of findings -> `docs`
 - Recommend early and concretely: name the agent, say why it fits better, and what to ask it
-
-Use relevant skills for this task type. Load the skill first, then follow its instructions.
